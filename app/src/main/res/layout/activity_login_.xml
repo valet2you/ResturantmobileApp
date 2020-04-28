@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    tools:context=".ui.Activities.Login_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@mipmap/logoforheader"
+            android:tint="#384a66"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="600dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+
+            android:background="@drawable/roundbackgroud"
+            android:layout_height="500dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:id="@+id/text"
+                android:textColor="@color/black"
+                android:text="LOGIN TO YOUR VSERVE ACCOUNT"
+                android:textSize="16sp"
+
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_width="500dp"
+                android:id="@+id/username"
+                android:layout_marginTop="50dp"
+                android:hint="Username"
+                android:paddingLeft="30dp"
+                android:textSize="24sp"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+                android:textColor="#65000000"
+                android:background="@drawable/whitebackgroud"
+                android:layout_height="80dp"/>
+            <EditText
+                android:layout_width="500dp"
+                android:id="@+id/password"
+                android:textSize="24sp"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:layout_marginTop="50dp"
+                android:hint="Password"
+                android:paddingLeft="30dp"
+
+                android:textColor="#65000000"
+                android:background="@drawable/whitebackgroud"
+                android:layout_height="80dp"/>
+            <TextView
+                android:layout_width="160sp"
+                android:id="@+id/button"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="50dp"
+                android:text="LOGIN"
+                android:layout_gravity="right"
+
+                android:textColor="#888888"
+                android:textSize="24sp"
+                android:background="@drawable/whitebackgroudblack"
+                android:layout_height="60dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
