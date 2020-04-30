@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <!-- <item
+        android:id="@+id/assignassociate"
+        android:icon="@drawable/btn_edit_time"
+        android:title="Assign Associate"
+
+        />
+    <item
+        android:visible="false"
+        android:icon="@drawable/btn_edit_time"
+        android:title="Edit clearance time"
+
+        />
+    <item
+        android:icon="@drawable/btn_force_close"
+        android:title="Clearance Done"
+
+
+        />
+    <item
+        android:id="@+id/forceclose"
+        android:icon="@drawable/btn_force_close"
+        android:title="Force close"
+
+
+        />
+
+    <item
+        android:visible="false"
+        android:icon="@drawable/resistanceband"
+        android:title="Service recovery"
+
+
+        />
+-->
+  <!--  <item
+        android:id="@+id/edit"
+        android:icon="@drawable/edit"
+        android:title="Edit"
+
+        />-->
+
+</menu>

@@ -50,7 +50,7 @@ public class Splash_Screen extends AppCompatActivity {
                         logoTimer = logoTimer +100;
                     };
                     try {
-                        if (sessionManager.getKeyUsertype().equals("")) {
+                        if (sessionManager.getPorchName().equals("")) {
                             startActivity(new Intent(Splash_Screen.this, Login_Activity.class));
                             finish();
                         } else {

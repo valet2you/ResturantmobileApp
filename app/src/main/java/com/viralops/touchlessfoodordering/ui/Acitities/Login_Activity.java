@@ -20,9 +20,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.viralops.touchlessfoodordering.MainActivity;
 import com.viralops.touchlessfoodordering.R;
+import com.viralops.touchlessfoodordering.ui.API.RetrofitClientInstance;
+import com.viralops.touchlessfoodordering.ui.Support.Network;
+import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
+import com.viralops.touchlessfoodordering.ui.Support.SessionManagerFCM;
+import com.viralops.touchlessfoodordering.ui.model.Login;
 
 import java.util.Arrays;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Login_Activity extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +38,8 @@ private TextView text;
 private TextView button;
 private EditText username;
 private EditText password;
+SessionManager sessionManager;
+SessionManagerFCM sessionManagerFCM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +52,9 @@ private EditText password;
         } else {
             setContentView(R.layout.activity_login);
         }
+         sessionManager=new SessionManager(Login_Activity.this);
+         sessionManagerFCM=new SessionManagerFCM(Login_Activity.this);
+
         Typeface font = Typeface.createFromAsset(
                 getAssets(),
                 "font/Roboto-Regular.ttf");
@@ -77,21 +90,19 @@ private EditText password;
 
             }
             else {
-                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                startActivity(intent);
-              /*  if (Network.isNetworkAvailable(Login_Activity.this)) {
+
+                if (Network.isNetworkAvailable(Login_Activity.this)) {
                     SignIn();
                 } else if (Network.isNetworkAvailable2(Login_Activity.this)) {
                     SignIn();
 
                 } else {
 
-                }*/
+                }
             }
         }
     }
 
-/*
     private void SignIn() {
         // display a progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(Login_Activity.this);
@@ -101,19 +112,23 @@ private EditText password;
         progressDialog.show(); // show progress dialog
 
 
-        (RetrofitClientInstance.getApiService().SignIn(username.getText().toString().trim(),password.getText().toString().trim())).enqueue(new Callback<Login>() {
+        (RetrofitClientInstance.getApiService().SignIn(username.getText().toString().trim(),password.getText().toString().trim(),sessionManagerFCM.getToken(),"A")).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(@NonNull Call<Login> call, @NonNull Response<Login> response) {
 
                 if(response.code()==201||response.code()==200){
                     Login  login = response.body();
-                    Toast.makeText(Login_Activity.this,login.getMessage(),Toast.LENGTH_SHORT).show();
-                    SessionManager sessionManager=new SessionManager(Login_Activity.this);
-                    sessionManager.setKeyUsertype(login.getUser_type());
-                    sessionManager.setKeyToken(login.getAccess_token());
+                    Toast.makeText(Login_Activity.this,"Login Succcessfully",Toast.LENGTH_SHORT).show();
+                    if(login.getSuccess().equals("1")) {
+                        sessionManager.setPorchName(login.getMessage().getHotel_name());
+                        sessionManager.setACCESSTOKEN(login.getMessage().getAccess_token());
 
-                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+
+                    }
                     progressDialog.dismiss();
 
 
@@ -148,6 +163,6 @@ private EditText password;
         });
 
     }
-*/
+
 
 }

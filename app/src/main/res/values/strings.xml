@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Touchless food ordering</string>
+    <string name="Rs">\u20B9</string>
 </resources>

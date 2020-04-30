@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/hotel"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="J.W Marriott Aerocity"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:layout_gravity="center"
+
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@mipmap/signs"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:id="@+id/close"
+                android:tint="@color/gray"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:drawableLeft="@mipmap/search"
+            android:drawablePadding="10dp"
+
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+
+            android:background="@drawable/whitebackgroudrpuny"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recyclerview"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+        </com.todkars.shimmer.ShimmerRecyclerView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+
+                android:layout_alignParentBottom="true"
+                 android:paddingBottom="30dp"
+
+                android:paddingRight="30dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                app:backgroundTint="@color/blue"
+                app:icon="@mipmap/menubig"
+                app:strokeColor="@color/lightgrey"
+                app:strokeWidth="1dp"
+                android:text="MENU"
+                app:cornerRadius="10dp"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:id="@+id/menubutton"
+                    app:iconSize="15dp"
+
+                app:iconPadding="10dp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                 android:paddingBottom="30dp"
+                android:paddingRight="30dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+           <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                app:backgroundTint="@color/blue"
+               style="@style/Widget.MaterialComponents.Button.Icon"
+                app:cornerRadius="10dp"
+                app:icon="@mipmap/close"
+                app:strokeColor="@color/lightgrey"
+                app:strokeWidth="1dp"
+                app:iconPadding="10dp"
+               android:visibility="gone"
+               android:id="@+id/closebutton"
+               app:iconSize="15dp"
+               android:text="CLOSE"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

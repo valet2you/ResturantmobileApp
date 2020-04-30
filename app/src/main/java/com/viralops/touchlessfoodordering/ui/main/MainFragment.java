@@ -1,7 +1,10 @@
 package com.viralops.touchlessfoodordering.ui.main;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,7 +25,7 @@ import com.viralops.touchlessfoodordering.R;
 
 import java.util.ArrayList;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private MainViewModel mViewModel;
     ShimmerRecyclerView shimmerRecyclerView;
@@ -120,6 +127,13 @@ public class MainFragment extends Fragment {
         return view;
 
     }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+        //  drawer_adapter=new ReleaseCarByToken.MyItemRecyclerViewAdapter(dashboards,getActivity());
+        //recyclerView.setAdapter(drawer_adapter);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -127,5 +141,46 @@ public class MainFragment extends Fragment {
         //mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         // TODO: Use the ViewModel
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        searchView.setBackgroundColor(Color.DKGRAY);
+
+        // search(searchView);
+        searchView.setOnQueryTextListener(this);    }
+
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.dashboard_menu, menu);
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        searchView.setBackgroundColor(Color.DKGRAY);
+
+        // search(searchView);
+        searchView.setOnQueryTextListener(this);
+
+    }
+
 
 }

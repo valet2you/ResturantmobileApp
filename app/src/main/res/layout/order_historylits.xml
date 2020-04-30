@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="5dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        app:cardBackgroundColor="@color/white"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="5dp"
+        android:layout_height="48dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+             android:id="@+id/colorimage"
+            android:background="@color/light_green"
+            android:layout_gravity="center"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="ROOM NUMBER"
+                android:textSize="20sp"
+                android:id="@+id/roomno"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/guest"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="GUESTS"
+                android:textSize="20sp" />
+        </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Order Received Time"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:id="@+id/orderreceivedtext"
+                android:gravity="center"
+                android:textColor="@color/gray"
+
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Order Delivered Time"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+
+                android:id="@+id/acceptedat"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Order Delivered Time"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+
+                android:id="@+id/deliveredat"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>

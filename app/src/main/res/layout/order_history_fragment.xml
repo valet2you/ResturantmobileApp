@@ -1,13 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.history.OrderHistory">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:orientation="vertical"
 
-</FrameLayout>
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="5dp"
+
+            android:layout_margin="5dp"
+            android:layout_height="28dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/filter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:src="@mipmap/filter"
+
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/roomno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="ROOM NUMBER"
+                    android:textSize="12sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="GUESTS"
+                android:textSize="12sp"
+                 android:id="@+id/guest"
+                android:gravity="center"
+                android:textColor="@color/black"
+
+                android:layout_height="wrap_content"/>
+                <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Order Received Time"
+                android:textSize="12sp"
+                    android:textAllCaps="true"
+                 android:id="@+id/orderreceivedtext"
+                android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Order Accepted Time"
+                android:textSize="12sp"
+                    android:textAllCaps="true"
+                 android:id="@+id/orderacceptedtext"
+                android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Order InKitchen Time"
+                android:textSize="12sp"
+                    android:textAllCaps="true"
+                 android:id="@+id/deliveredat"
+                android:gravity="center"
+                    android:textColor="@color/black"
+
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/sidelist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_recycler_layout="@layout/layout_demo_grid"
+            app:shimmer_recycler_item_count="10"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:background="@color/white"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/norecord"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textColor="@color/gray"
+                android:text="No History."
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

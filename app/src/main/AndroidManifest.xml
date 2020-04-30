@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.viralops.touchlessfoodordering">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <permission
+        android:name="com.viralops.touchlessfoodordering.ui.FCM"
+        android:label="FCM"
+        android:protectionLevel="dangerous" />
     <application
         android:allowBackup="true"
+        android:name=".ui.Support.CustomFontApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -20,9 +26,20 @@
         </activity> <activity android:name=".ui.Acitities.Login_Activity">
 
         </activity><activity android:name=".MainActivity"
-        android:screenOrientation="fullSensor">
+        android:screenOrientation="landscape"
+        tools:ignore="LockedOrientationActivity">
 
         </activity>
+        <service
+            android:name=".ui.FCM.FirebaseMessagingService"
+            android:exported="false"
+            android:permission="valley2you.ird.FCM"
+            tools:ignore="InnerclassSeparator">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

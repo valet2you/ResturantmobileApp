@@ -15,6 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="MainFragment"
+        app:shimmer_recycler_layout="@layout/workforceshimmer"
+        app:shimmer_recycler_item_count="10"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 android:layout_margin="5dp"
        />
         <TextView
