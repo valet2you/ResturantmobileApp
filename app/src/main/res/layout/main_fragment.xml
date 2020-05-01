@@ -15,15 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="MainFragment"
+        android:padding="5dp"
         app:shimmer_recycler_layout="@layout/workforceshimmer"
         app:shimmer_recycler_item_count="10"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                android:layout_margin="5dp"
        />
         <TextView
             android:layout_width="match_parent"
             android:text="No record Forund"
             android:gravity="center"
+            android:id="@+id/norecord"
             android:visibility="gone"
             android:textColor="@color/gray"
             android:textSize="12sp"

@@ -1,34 +1,29 @@
 package com.viralops.touchlessfoodordering.ui.history;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.view.Gravity;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.viralops.touchlessfoodordering.R;
-import com.viralops.touchlessfoodordering.ui.main.HomeViewModel;
-import com.viralops.touchlessfoodordering.ui.main.Order_Item;
+import com.viralops.touchlessfoodordering.ui.model.Order;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewholder>{
-    ArrayList<Order> homeViewModels;
+    ArrayList<Order.Data> homeViewModels;
     Context context;
 
-    public HistoryAdapter(Context context, ArrayList<Order> homeViewModels) {
+    public HistoryAdapter(Context context, ArrayList<Order.Data> homeViewModels) {
         this.context=context;
         this.homeViewModels=homeViewModels;
     }
@@ -45,11 +40,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
     @Override
     public void onBindViewHolder(@NonNull final viewholder holder, int position) {
         holder.mitem=homeViewModels.get(position);
-        holder.roomno.setText(holder.mitem.getRoomno());
-        holder.guests.setText(holder.mitem.getGuests());
-        holder.orderrecived.setText(holder.mitem.getOrderreceivedat());
-        holder.orderstatus.setText(holder.mitem.getDeliverytime());
-        holder.acceptedat.setText(holder.mitem.getDeliverytime());
+        holder.roomno.setText(holder.mitem.getRoom_no());
+        holder.guests.setText(holder.mitem.getNo_guest());
+        holder.orderrecived.setText(getDate(holder.mitem.getCreated_at()));
+        holder.orderstatus.setText(getDate(holder.mitem.getDispatched_at()));
+        holder.acceptedat.setText(getDate(holder.mitem.getConfirm_at()));
         if(holder.mitem.getStatus().equals("2")){
             holder.colorimage.setBackgroundColor(context.getResources().getColor(R.color.red));
             holder.orderstatus.setTextColor(context.getResources().getColor(R.color.gray));
@@ -91,7 +86,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
          public  TextView acceptedat;
 
         LinearLayout colorimage;
-        Order mitem;
+        Order.Data mitem;
 
 
 
@@ -123,6 +118,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
 
      }
 
-
+    private String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(time * 1000);
+        String date = DateFormat.format("hh:mm a", cal).toString();
+        return date;
+    }
 
 }

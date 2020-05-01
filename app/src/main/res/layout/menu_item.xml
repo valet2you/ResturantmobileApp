@@ -157,15 +157,15 @@
             android:layout_height="wrap_content">
             <ToggleButton
                 android:id="@+id/toggleButton1"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:background="@drawable/togglestate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:button="@drawable/togglestate"
                 android:checked="true"
                 android:textSize="12sp"
                 android:layout_alignParentRight="true"
-                android:textOff="OFF"
-                android:textOn="ON" />
+                android:textOff=""
+                android:textOn="" />
 
         </LinearLayout>
 

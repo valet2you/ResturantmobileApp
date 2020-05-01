@@ -1,10 +1,8 @@
-package com.viralops.touchlessfoodordering.ui.main;
-
-
+package com.viralops.touchlessfoodordering.ui.model;
 
 import java.util.ArrayList;
 
-public class HomeViewModel{
+public class Order {
     private ArrayList<Data> data;
 
     private String success;
@@ -34,10 +32,9 @@ public class HomeViewModel{
     {
         return "ClassPojo [data = "+data+", success = "+success+"]";
     }
-
     public class Data
     {
-        private long updated_at;
+        private String updated_at;
 
         private long confirm_at;
 
@@ -52,34 +49,25 @@ public class HomeViewModel{
         private String details;
 
         private String order_id;
-        private long timediffrence;
 
         private ArrayList<Items> items;
 
-        public long getTimediffrence() {
-            return timediffrence;
-        }
-
-        public void setTimediffrence(long timediffrence) {
-            this.timediffrence = timediffrence;
-        }
-
         private String status;
 
-        public long getUpdated_at ()
-    {
-        return updated_at;
-    }
+        public String getUpdated_at ()
+        {
+            return updated_at;
+        }
 
-        public void setUpdated_at (long updated_at)
+        public void setUpdated_at (String updated_at)
         {
             this.updated_at = updated_at;
         }
 
         public long getConfirm_at ()
-    {
-        return confirm_at;
-    }
+        {
+            return confirm_at;
+        }
 
         public void setConfirm_at (long confirm_at)
         {
@@ -87,9 +75,9 @@ public class HomeViewModel{
         }
 
         public long getDispatched_at ()
-    {
-        return dispatched_at;
-    }
+        {
+            return dispatched_at;
+        }
 
         public void setDispatched_at (long dispatched_at)
         {

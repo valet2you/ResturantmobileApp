@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/greentoofle"
+    <item android:drawable="@mipmap/on"
         android:state_checked="true" />
-    <item android:drawable="@drawable/greyround"
+    <item android:drawable="@mipmap/off"
         />
 </selector>

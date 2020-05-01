@@ -4,29 +4,37 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -43,7 +51,7 @@ import com.viralops.touchlessfoodordering.ui.history.OrderHistory;
 import com.viralops.touchlessfoodordering.ui.main.MainFragment;
 import com.viralops.touchlessfoodordering.ui.model.Action;
 import com.viralops.touchlessfoodordering.ui.model.Menu;
-import com.viralops.touchlessfoodordering.ui.model.Logout;
+import com.viralops.touchlessfoodordering.ui.model.Menucategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,14 +61,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView busytray;
-    private TextView busytrolley;
-    private TextView busyassciate;
-    private TextView availabletray;
-    private TextView availabletrolley;
-    private TextView availableassciate;
-    private TextView totaltext;
-    private TextView totalorders;
+    static public TextView busytray;
+    static public TextView busytrolley;
+    static public TextView busyassciate;
+    static public TextView availabletray;
+    static public TextView availabletrolley;
+    static public TextView availableassciate;
+    static public TextView totaltext;
+    static public TextView totalorders;
     private TextView text;
     private TextView text1;
     private CardView order;
@@ -69,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView logout;
     private SessionManager sessionManager;
     private SessionManagerFCM sessionManagerFCM;
-    ArrayList<Menu> categorylist=new ArrayList<>();
+    ArrayList<Menucategory> categorylist=new ArrayList<>();
     ArrayList<Menu.menu_data> menuslist=new ArrayList<>();
      Dialog dialog1;
     ParentAdapter parentAdapter;
     ShimmerRecyclerView shimmerRecyclerView;
+    Order_ItemAdapterdetail order_itemAdapterdetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,9 +216,26 @@ public class MainActivity extends AppCompatActivity {
                  TextView title=dialog.findViewById(R.id.hotel);
                  title.setTypeface(font);
                  final MaterialButton menubutton=dialog.findViewById(R.id.menubutton);
-                final MaterialButton backbutton=dialog.findViewById(R.id.closebutton);
+                 final MaterialButton backbutton=dialog.findViewById(R.id.closebutton);
                  parentAdapter=new ParentAdapter(menuslist,MainActivity.this);
                 shimmerRecyclerView.setAdapter(parentAdapter);
+                EditText searchtext=dialog.findViewById(R.id.searchtext);
+                searchtext.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        filter1(s.toString());
+                    }
+                });
                  registerForContextMenu(menubutton);
                  ImageView close=dialog.findViewById(R.id.close);
                  close.setOnClickListener(new View.OnClickListener() {
@@ -221,10 +248,40 @@ public class MainActivity extends AppCompatActivity {
                 menubutton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
+                   final Dialog dialog = new Dialog(MainActivity.this);
+                   // Include dialog.xml file
+                   dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                   // getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                   dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                   dialog.setContentView(R.layout.categorypopup);
+                   int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.99);
+                   int height = (int) (getResources().getDisplayMetrics().heightPixels * 0.99);
+
+                   dialog.getWindow().setLayout(width, height);
+                   dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2;
+
+                  // dialog.setCancelable(true);
+                   dialog.setCanceledOnTouchOutside(true);
+                  // setFinishOnTouchOutside(true);
+                   // Set dialog title
+                   dialog.setTitle("Select Category");
+                   dialog.show();
+                   RecyclerView recyclerView=dialog.findViewById(R.id.recycler);
+                   recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
+                   CartegoryAdapter menupopupadapeter=new CartegoryAdapter(categorylist,MainActivity.this);
+                   recyclerView.setAdapter(menupopupadapeter);
+                  ImageView close=dialog.findViewById(R.id.close);
+                  close.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          dialog.dismiss();
+                      }
+                  });
                 /*   menubutton.setVisibility(View.GONE);
                    backbutton.setVisibility(View.VISIBLE);*/
                    //openOptionsMenu();
-                   openContextMenu(v);
+                  // openContextMenu(v);
                    /*  dialog1 = new Dialog(MainActivity.this);
                    // Include dialog.xml file
 
@@ -300,7 +357,10 @@ public class MainActivity extends AppCompatActivity {
                     .inflate(R.layout.menu_item, parent, false);
             return new Order_ItemAdapterdetail.ViewHolder(view);
         }
-
+        public void filterList(ArrayList<Menu.Items> filterdNames) {
+            this.order_items = filterdNames;
+            notifyDataSetChanged();
+        }
         @Override
         public void onBindViewHolder(@NonNull final Order_ItemAdapterdetail.ViewHolder holder, int position) {
             holder.mitem=order_items.get(position);
@@ -439,7 +499,6 @@ public class MainActivity extends AppCompatActivity {
     public class ParentAdapter extends  RecyclerView.Adapter<ParentAdapter.ViewHolder>{
         ArrayList<Menu.menu_data> order_items;
         Context context;
-        Order_ItemAdapterdetail order_itemAdapterdetail;
         String enabled;
 
         public ParentAdapter(ArrayList<Menu.menu_data> order_items, Context context) {
@@ -454,11 +513,14 @@ public class MainActivity extends AppCompatActivity {
                     .inflate(R.layout.menuparent, parent, false);
             return new ParentAdapter.ViewHolder(view);
         }
-
+        public void filterList(ArrayList<Menu.menu_data> filterdNames) {
+            this.order_items = filterdNames;
+            notifyDataSetChanged();
+        }
         @Override
         public void onBindViewHolder(@NonNull final ParentAdapter.ViewHolder holder, int position) {
             holder.mitem=order_items.get(position);
-            holder.title.setText(holder.mitem.getName());
+            holder.title.setText(holder.mitem.getName()+" ( "+String.valueOf(holder.mitem.getItems().size())+" )");
             if(holder.mitem.getIs_enabled().equals("1")){
                 holder.toggle.setChecked(true);
                 enabled="1";
@@ -544,12 +606,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-/*
+
     public class CartegoryAdapter extends  RecyclerView.Adapter<CartegoryAdapter.ViewHolder>{
-        ArrayList<Menu> order_items;
+        ArrayList<Menucategory> order_items;
         Context context;
 
-        public CartegoryAdapter(ArrayList<Menu> order_items, Context context) {
+        public CartegoryAdapter(ArrayList<Menucategory> order_items, Context context) {
             this.order_items = order_items;
             this.context = context;
         }
@@ -565,8 +627,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull CartegoryAdapter.ViewHolder holder, int position) {
             holder.mitem=order_items.get(position);
-            holder.title.setText(holder.mitem.getTitle());
-            holder.category1.setText(String.valueOf(holder.mitem.getDish()));
+            holder.title.setText(holder.mitem.getName());
+            holder.category1.setText(String.valueOf(holder.mitem.getItems().size()));
 
         }
 
@@ -581,7 +643,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            Menu mitem;
+            Menucategory mitem;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -595,8 +657,8 @@ public class MainActivity extends AppCompatActivity {
                         getAssets(),
                         "font/Roboto-Thin.ttf");
 
-                title.setTypeface(font1);
-                category1.setTypeface(font1);
+                title.setTypeface(font);
+                category1.setTypeface(font);
 
             }
         }
@@ -604,7 +666,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-*/
+
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -631,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
         String credentials = Credentials.basic("admin", "LetsValet2You");
 */
 
-        (RetrofitClientInstance.getApiService().logout( sessionManager.getACCESSTOKEN())).enqueue(new Callback<Action>() {
+        (RetrofitClientInstance.getApiService().logout( sessionManager.getACCESSTOKEN(),sessionManagerFCM.getToken())).enqueue(new Callback<Action>() {
             @Override
             public void onResponse(@NonNull Call<Action> call, @NonNull Response<Action> response) {
 
@@ -688,6 +750,15 @@ public class MainActivity extends AppCompatActivity {
                     Menu  login = response.body();
                    menuslist=new ArrayList<>();
                    menuslist=login.getData();
+                   categorylist =new ArrayList<>();
+                   for(int i=0;i<menuslist.size();i++){
+                       Menucategory menucategory=new Menucategory();
+                       menucategory.setCategory_id(menuslist.get(i).getCategory_id());
+                       menucategory.setName(menuslist.get(i).getName());
+                       menucategory.setItems(menuslist.get(i).getItems());
+                       categorylist.add(menucategory);
+
+                   }
 
                 }
                 else if(response.code()==401){
@@ -732,6 +803,16 @@ public class MainActivity extends AppCompatActivity {
                     Menu  login = response.body();
                    menuslist=new ArrayList<>();
                    menuslist=login.getData();
+                    categorylist =new ArrayList<>();
+                    for(int i=0;i<menuslist.size();i++){
+                        Menucategory menucategory=new Menucategory();
+                        menucategory.setCategory_id(menuslist.get(i).getCategory_id());
+                        menucategory.setName(menuslist.get(i).getName());
+                        menucategory.setItems(menuslist.get(i).getItems());
+                        categorylist.add(menucategory);
+
+                    }
+
                     parentAdapter=new ParentAdapter(menuslist,MainActivity.this);
                     shimmerRecyclerView.setAdapter(parentAdapter);                }
                 else if(response.code()==401){
@@ -970,7 +1051,131 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<Menu.menu_data> filterdNames = new ArrayList<>();
 
+        //looping through existing elements
+        for (Menu.menu_data s : menuslist) {
+            //if the existing elements contains the search input
+            if (s.getName().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        parentAdapter.filterList(filterdNames);
+    }
+ private void filter1(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<Menu.Items> filterdNames1 = new ArrayList<>();
+
+        //looping through existing elements
+        for (Menu.menu_data s : menuslist) {
+            for (Menu.Items s1 : s.getItems()){
+                //if the existing elements contains the search input
+                if (s1.getName().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames1.add(s1);
+                }
+        }
+            order_itemAdapterdetail.filterList(filterdNames1);
+
+
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+    }
+
+    // Showing the status in Snackbar
+
+    // Method to manually check connection status
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+                    Fragment fragment1 = new MainFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_view, fragment1, fragment1.getClass().getSimpleName()).addToBackStack(null).commit();
+
+
+
+
+        }
+    };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+
+            registerReceiver(mMessageReceiver, new IntentFilter("com.viralops.touchlessfoodordering"));
+
+            unregisterReceiver(mMessageReceiver);
+
+        }
+        catch (Exception e)
+        {
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+
+            registerReceiver(mMessageReceiver, new IntentFilter("com.viralops.touchlessfoodordering"));
+
+
+        }
+        catch (Exception e)
+        {
+        }
+
+    }
+    public void onBackPressed() {
+
+            //super.onBackPressed();
+            final Dialog dialog = new Dialog(MainActivity.this);
+            // Include dialog.xml file
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            // dialog.getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT);            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.delet_dialog);
+            int width1 = (int)(getResources().getDisplayMetrics().widthPixels*0.50);
+            int height1 = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+            dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+
+            dialog.getWindow().setLayout(width1, height1);
+
+            dialog.setCancelable(false);
+            // Set dialog title
+            dialog.setTitle("");
+            dialog.show();
+            TextView textView=dialog.findViewById(R.id.text) ;
+            textView.setText("Are you sure you want to exit ?");
+            // String textstring="Do you confirm that room is cleared and trolley is back to IRD operation? or"+<b>
+            TextView confirm=dialog.findViewById(R.id.cancel) ;
+            TextView cancel1=dialog.findViewById(R.id.confirm);
+
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            cancel1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.this.finish();
+                    dialog.dismiss();
+                }
+            });
+
+        }
 
 
 }

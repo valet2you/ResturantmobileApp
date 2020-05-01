@@ -121,7 +121,7 @@
                                 android:layout_height="wrap_content">
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:text="Acknowledged"
+                                    android:text="Accepted"
                                     android:layout_weight="1"
                                     android:layout_marginLeft="8dp"
 

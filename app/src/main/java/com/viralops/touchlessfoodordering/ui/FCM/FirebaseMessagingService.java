@@ -16,7 +16,10 @@ import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
+import com.viralops.touchlessfoodordering.MainActivity;
+import com.viralops.touchlessfoodordering.R;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManagerFCM;
 
@@ -53,30 +56,81 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             e.printStackTrace();
         }
 
-        if(message.equals("Add order to queue")){
-            try {
-                target=object.getString("queued_orders");
-                sessionManager.setSLOT1(target);
-                sessionManager.setNotificationvalue("queue");
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+
+           sendNotification(message);
+
+    }
+    private void sendNotification(String messageBody) {
+
+        Bitmap logo = null;
+        try {
+
+            Drawable myDrawable = ContextCompat.getDrawable(this, R.mipmap.ic_launcher);
+            logo = ((BitmapDrawable) myDrawable).getBitmap();
+        } catch (Exception ignored) {
+        }
+        PendingIntent pendingIntent;
+
+
+            Intent intent = new Intent(FirebaseMessagingService.this, MainActivity.class);
+            intent.putExtra("key", "value");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+            pendingIntent = PendingIntent.getActivity(FirebaseMessagingService.this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+
+
+
+        int notifyID = 1;
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        String CHANNEL_ID = "my_channel_01";// The id of the channel.
+        CharSequence name = "VServe";// The user-visible name of the channel.
+        Notification notification;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+// Create a notification and set the notification channel.
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher).copy(Bitmap.Config.ARGB_8888, true);
+        NotificationChannel mChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+            notification = new Notification.Builder(FirebaseMessagingService.this)
+                    .setContentTitle("VServe ++ - New Request Found upar!!!")
+                    .setContentText(messageBody)
+                    .setLargeIcon(bm)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+
+                    .setAutoCancel(true)
+                    .setChannelId(CHANNEL_ID).setContentIntent(pendingIntent).build();
+        }
+        else
+        {
+            notification = new Notification.Builder(FirebaseMessagingService.this)
+                    .setContentTitle("VServe ++ - New Request Found !!!")
+                    .setContentText(messageBody)
+                    .setLargeIcon(bm)
+
+                    .setSmallIcon(R.mipmap.ic_launcher).setAutoCancel(true)
+                    .setContentIntent(pendingIntent).build();
+
+        }
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mNotificationManager.createNotificationChannel(mChannel);
+            mNotificationManager.notify(notifyID , notification);
+            mNotificationManager.cancel(notifyID);
+            // startForeground(1,notification);
 
         }
         else{
-            try {
-                message=object.getString("message");
-                //target=object.getString("queued_orders");
-                sessionManager.setSLOT1("");
-                sessionManager.setNotificationvalue("dashboard");
+            mNotificationManager.notify(notifyID, notification);
+            mNotificationManager.cancel(notifyID);
+            //startForeground(1,notification);
 
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            //   mNotificationManager.cancelAll()
         }
-
 
     }
 
@@ -85,7 +139,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     static void updateMyActivity(Context context, String message) {
 
-        Intent intent = new Intent("valley2you.ird");
+        Intent intent = new Intent("com.viralops.touchlessfoodordering");
         context.sendBroadcast(intent);
     }
 }

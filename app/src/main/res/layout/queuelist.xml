@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
+    android:layout_width="205dp"
     android:layout_gravity="center"
     app:cardElevation="2dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -63,15 +63,16 @@
 
                         android:textSize="8sp"
                         android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:textSize="20sp"
-                        android:text="5"
-                        android:textColor="@color/black"
-                        android:id="@+id/guest"
 
+                    <TextView
+                        android:id="@+id/guest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:layout_height="wrap_content"/>
+                        android:text="5"
+
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
 
                 </LinearLayout>
@@ -92,24 +93,27 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.9"
                         android:textSize="14dp"
                         android:textColor="@color/gray"
                         android:id="@+id/status"
 
                         android:text="In Kitchen"
-                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:paddingLeft="5dp"
+                        android:gravity="center_vertical"
                         android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:text="03:10:00 pm"
-                        android:gravity="center"
-                        android:textColor="@color/gray"
-                        android:id="@+id/orderreceived"
 
-                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/orderreceived"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:gravity="center"
+                        android:text="03:10:00 pm"
+                        android:textColor="@color/gray"
+
+                        android:textSize="13sp" />
 
 
                 </LinearLayout>
@@ -151,9 +155,9 @@
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
-                android:text="Order Instruction"
+                android:text="Order Instructions"
                 android:layout_marginTop="5dp"
-                android:textSize="8sp"
+                android:textSize="10sp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/gray"
                  android:layout_height="wrap_content"></TextView>
@@ -161,6 +165,7 @@
     android:layout_width="wrap_content"
     android:text="Not spicy"
     android:textColor="@color/black"
+    android:id="@+id/instrctions"
     android:textSize="12sp"
     android:padding="5dp"
     android:layout_height="wrap_content"/>
@@ -179,7 +184,7 @@
                 android:background="#F1F1F1"
                 android:layout_height="1dp"/>
             <androidx.cardview.widget.CardView
-                android:layout_width="150dp"
+                android:layout_width="100dp"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -195,7 +200,8 @@
                     android:textSize="12sp"
                     android:layout_gravity="center"
                     android:id="@+id/dispatch"
-                    android:text="Acknowledged"
+                    android:text="Accept"
+                    android:textAllCaps="true"
                     android:textColor="#80000000"
                     android:gravity="center"
                     android:layout_height="wrap_content"/>

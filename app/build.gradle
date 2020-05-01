@@ -25,6 +25,11 @@ android {
             buildConfigField "String", "disable_item", '"disable_item"'
             buildConfigField "String", "disable_category", '"disable_category"'
             buildConfigField "String", "enable_category", '"enable_category"'
+            buildConfigField "String", "get_orders", '"get_orders"'
+            buildConfigField "String", "order_accept", '"order_accept"'
+            buildConfigField "String", "order_dispatch", '"order_dispatch"'
+            buildConfigField "String", "get_order_history", '"get_order_history"'
+            buildConfigField "String", "get_order_header", '"get_order_header"'
 
 
             minifyEnabled false
@@ -40,6 +45,11 @@ android {
             buildConfigField "String", "disable_item", '"disable_item"'
             buildConfigField "String", "disable_category", '"disable_category"'
             buildConfigField "String", "enable_category", '"enable_category"'
+            buildConfigField "String", "get_orders", '"get_orders"'
+            buildConfigField "String", "order_accept", '"order_accept"'
+            buildConfigField "String", "order_dispatch", '"order_dispatch"'
+            buildConfigField "String", "get_order_history", '"get_order_history"'
+            buildConfigField "String", "get_order_header", '"get_order_header"'
 
         }
 

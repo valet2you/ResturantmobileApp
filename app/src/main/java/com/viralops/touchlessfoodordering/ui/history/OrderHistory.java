@@ -2,7 +2,6 @@ package com.viralops.touchlessfoodordering.ui.history;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,7 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.SystemClock;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,11 +23,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.todkars.shimmer.ShimmerRecyclerView;
 import com.viralops.touchlessfoodordering.R;
+import com.viralops.touchlessfoodordering.ui.API.RetrofitClientInstance;
+import com.viralops.touchlessfoodordering.ui.Support.Network;
+import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
+import com.viralops.touchlessfoodordering.ui.main.HomeAdapter;
+import com.viralops.touchlessfoodordering.ui.main.HomeViewModel;
+import com.viralops.touchlessfoodordering.ui.model.Order;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderHistory extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -38,8 +56,9 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
     TextView deliveredat;
     TextView orderacceptedtext;
     TextView norecord;
-   ArrayList<Order> orderslist;
+   ArrayList<Order.Data> orderslist;
     SearchView searchView;
+    SessionManager sessionManager;
 
     public static OrderHistory newInstance() {
         return new OrderHistory();
@@ -49,6 +68,7 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.order_history_fragment, container, false);
+        sessionManager=new SessionManager(getActivity());
         recyclerview=view.findViewById(R.id.sidelist);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         roomno=view.findViewById(R.id.roomno);
@@ -70,18 +90,15 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
                 getActivity().getAssets(),
                 "font/verdana.ttf");
         orderslist=new ArrayList<>();
-        for(int i=0;i<10;i++){
-            Order orders=new Order();
-            orders.setRoomno("123456");
-            orders.setGuests("5");
-            orders.setStatus("3");
-            orders.setOrderreceivedat("Today at 12:30 am");
-            orders.setDeliverytime("Today at 1:30 pm");
-            orderslist.add(orders);
+        if(Network.isNetworkAvailable(getActivity())){
+            GetMenu();
+        }
+        else if(Network.isNetworkAvailable2(getActivity())){
+            GetMenu();
+        }
+       else {
 
         }
-        HistoryAdapter historyAdapter=new HistoryAdapter(getActivity(),orderslist);
-        recyclerview.setAdapter(historyAdapter);
 
         return view;
     }
@@ -117,4 +134,63 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
     public boolean onQueryTextChange(String newText) {
         return false;
     }
+    private void GetMenu() {
+        // display a progress dialog
+        recyclerview.showShimmer();
+/*
+        String credentials = Credentials.basic("admin", "LetsValet2You");
+*/
+
+        (RetrofitClientInstance.getApiService().getHistory(sessionManager.getACCESSTOKEN())).enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(@NonNull Call<Order> call, @NonNull Response<Order> response) {
+
+                if(response.code()==201||response.code()==200){
+                    Order  login = response.body();
+                    orderslist=new ArrayList<>();
+                    orderslist=login.getData();
+                    if(orderslist.size()!=0){
+
+                        HistoryAdapter homeAdapter=new HistoryAdapter(getActivity(),orderslist);
+                        recyclerview.setAdapter(homeAdapter);
+                        norecord.setVisibility(View.GONE);
+                    }
+                    else{
+                        HistoryAdapter homeAdapter=new HistoryAdapter(getActivity(),orderslist);
+                        recyclerview.setAdapter(homeAdapter);
+                        norecord.setVisibility(View.VISIBLE);
+                    }
+
+
+
+
+                }
+                else if(response.code()==401){
+                    Order login = response.body();
+                    Toast.makeText(getActivity(), "Unauthorised", Toast.LENGTH_SHORT).show();
+                }
+                else if(response.code()==500){
+                    Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+
+                }
+
+                recyclerview.hideShimmer();
+
+
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Order> call, @NonNull Throwable t) {
+                Log.d("response", Arrays.toString(t.getStackTrace()));
+                recyclerview.hideShimmer();
+
+            }
+        });
+
+    }
+
 }
