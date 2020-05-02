@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModelProviders;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -18,10 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -32,6 +37,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AutoCompleteTextView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +53,7 @@ import com.viralops.touchlessfoodordering.BuildConfig;
 import com.viralops.touchlessfoodordering.MainActivity;
 import com.viralops.touchlessfoodordering.R;
 import com.viralops.touchlessfoodordering.ui.API.RetrofitClientInstance;
+import com.viralops.touchlessfoodordering.ui.Support.Internetconnection;
 import com.viralops.touchlessfoodordering.ui.Support.Network;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 import com.viralops.touchlessfoodordering.ui.model.Action;
@@ -55,14 +67,16 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainFragment extends Fragment implements SearchView.OnQueryTextListener{
+public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;
     ShimmerRecyclerView shimmerRecyclerView;
@@ -70,8 +84,20 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
     ArrayList<Order_Item> orderlist;
     SessionManager sessionManager;
     TextView norecord;
+    AutoCompleteTextView searchView;
+    HomeAdapter homeAdapter;
+    Animation animation;
+    private SearchView.OnQueryTextListener queryTextListener;
+
     public static MainFragment newInstance() {
         return new MainFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
     }
 
     @Nullable
@@ -79,9 +105,13 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.main_fragment, container, false);
+        setHasOptionsMenu(true);
+        homeAdapter=new HomeAdapter(getActivity(),queuelist);
+
+        searchView =  view.findViewById(R.id.searchView);
         sessionManager=new SessionManager(getActivity());
         shimmerRecyclerView=view.findViewById(R.id.recyclerview);
-        shimmerRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),6));
+        shimmerRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),5));
         norecord=view.findViewById(R.id.norecord);
 
         if(Network.isNetworkAvailable(getActivity())){
@@ -93,21 +123,69 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
 
         }
         else{
-
+            Intent intent=new Intent(getActivity(), Internetconnection.class);
+            startActivity(intent);
+            this.getActivity().finish();
         }
 
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+        try {
+            MainActivity.neworderss.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (queuelist.size() != 0) {
+                        try {
+                            if(MainActivity.imgBell.getVisibility()==v.VISIBLE) {
+                                shimmerRecyclerView.smoothScrollToPosition(queuelist.size() - 1);
+                                MainActivity.imgBell.setVisibility(View.GONE);
+                            }
+                            else{
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+            });
+        }
+        catch (Exception e){
+
+        }
+        shimmerRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(MainActivity.imgBell.getVisibility()==View.GONE) {
+                    GridLayoutManager layoutManager = GridLayoutManager.class.cast(recyclerView.getLayoutManager());
+                    int lastItem = homeAdapter.getItemCount() - 1;
+                    tryAnimation(layoutManager.findViewByPosition(lastItem));
+                }
+                else{
+
+                }
+            }
+        });
 
 
         return view;
 
     }
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-        //  drawer_adapter=new ReleaseCarByToken.MyItemRecyclerViewAdapter(dashboards,getActivity());
-        //recyclerView.setAdapter(drawer_adapter);
-    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -117,44 +195,28 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
-        MenuItem search = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setBackgroundColor(Color.DKGRAY);
 
-        // search(searchView);
-        searchView.setOnQueryTextListener(this);    }
-
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.dashboard_menu, menu);
-        MenuItem search = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setBackgroundColor(Color.DKGRAY);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main:
+                // Not implemented here
+                return false;
+            default:
+                break;
+        }
 
-        // search(searchView);
-        searchView.setOnQueryTextListener(this);
-
+        return false;
     }
+
     private void GetMenu() {
         // display a progress dialog
       shimmerRecyclerView.showShimmer();
@@ -171,12 +233,12 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                     queuelist=new ArrayList<>();
                     queuelist=login.getData();
                     if(queuelist.size()!=0){
-                        HomeAdapter homeAdapter=new HomeAdapter(getActivity(),queuelist);
+                         homeAdapter=new HomeAdapter(getActivity(),queuelist);
                         shimmerRecyclerView.setAdapter(homeAdapter);
                         norecord.setVisibility(View.GONE);
                     }
                     else{
-                        HomeAdapter homeAdapter=new HomeAdapter(getActivity(),queuelist);
+                         homeAdapter=new HomeAdapter(getActivity(),queuelist);
                         shimmerRecyclerView.setAdapter(homeAdapter);
                         norecord.setVisibility(View.VISIBLE);
                     }
@@ -258,6 +320,8 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                 else if(response.code()==401){
                   HomeViewModel login = response.body();
                     Toast.makeText(getActivity(), "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+
                 }
                 else if(response.code()==500){
                     Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -304,6 +368,7 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                 else if(response.code()==401){
                     Header login = response.body();
                     Toast.makeText(getActivity(), "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -353,6 +418,8 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(getActivity(), "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+
                 }
                 else if(response.code()==500){
                     Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -402,6 +469,8 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(getActivity(), "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+
                 }
                 else if(response.code()==500){
                     Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -425,11 +494,12 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
 
     }
 
-    public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.viewholder>{
+    public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.viewholder> {
         ArrayList<HomeViewModel.Data> homeViewModels;
         Context context;
         private Handler mHandler = new Handler();
         ArrayList<HomeAdapter.viewholder> lstHolders;
+
 
         Timer tmr;
         private Runnable updateRemainingTimeRunnable = new Runnable() {
@@ -465,6 +535,7 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
         public HomeAdapter(Context context,ArrayList<HomeViewModel.Data> homeViewModels) {
             this.context=context;
             this.homeViewModels=homeViewModels;
+
             lstHolders = new ArrayList<>();
 
             startUpdateTimer();
@@ -486,8 +557,14 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
             holder.guests.setText(holder.mitem.getNo_guest());
             // holder.orderrecived.setText(holder.mitem.getOrderreceived())
 
+            if (holder.mitem.getDetails() != null) {
+                holder.instaruction.setText(holder.mitem.getDetails());
 
-            holder.instaruction.setText(holder.mitem.getDetails());
+          }
+          else{
+              holder.instaruction.setText("-");
+
+          }
 
             holder.since.setText(getDate(holder.mitem.getCreated_at()));
             if(holder.mitem.getStatus().equals("New Order")){
@@ -499,7 +576,7 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
 
             }
             else{
-                holder.dispatch.setText("DISPATCH");
+                holder.dispatch.setText("CLEAR");
 
                 holder.colorimage.setBackgroundColor(context.getResources().getColor(R.color.light_green));
                 holder.orderstatus.setTextColor(context.getResources().getColor(R.color.gray));
@@ -510,7 +587,7 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
             }
             if(holder.mitem.getItems().size()>4){
                 holder.more.setVisibility(View.VISIBLE);
-                holder.more.setText(String.valueOf(holder.mitem.getItems().size()-4));
+                holder.more.setText(String.valueOf(holder.mitem.getItems().size()-4)+" More");
             }
             else{
                 holder.more.setVisibility(View.GONE);
@@ -564,7 +641,10 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
         public int getItemCount() {
             return homeViewModels.size();
         }
-
+        public void filterList(ArrayList<HomeViewModel.Data> filterdNames) {
+            this.homeViewModels = filterdNames;
+            notifyDataSetChanged();
+        }
         public class viewholder extends RecyclerView.ViewHolder {
             public TextView roomno;
             public TextView guests;
@@ -598,7 +678,7 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                         "font/Roboto-Regular.ttf");
                 dispatch.setTypeface(font);
 
-                Typeface font1 = Typeface.createFromAsset(
+                final Typeface font1 = Typeface.createFromAsset(
                         context.getAssets(),
                         "font/verdana.ttf");
                 more.setTypeface(font1);
@@ -635,34 +715,54 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                         TextView orderins=dialog.findViewById(R.id.orderins);
                         orderins.setTypeface(font);
                         TextView orderinsdetails=dialog.findViewById(R.id.orderinsdetails);
+                        TextView acceptedat=dialog.findViewById(R.id.accepttext);
+                        acceptedat.setTypeface(font);
+                        TextView accepted=dialog.findViewById(R.id.accepted);
+                        TextView dispatchbutton=dialog.findViewById(R.id.dispatch);
+                        dispatch.setTypeface(font);
+                        if(homeViewModels.get(getAdapterPosition()).getStatus().equals("New Order")){
+                            dispatchbutton.setText("ACCEPT");
+                        }
+                        else{
+                            dispatchbutton.setText("CLEAR");
+                        }
+
+
                         RecyclerView orderitemsdetail=dialog.findViewById(R.id.orderitemsdetail);
                         orderitemsdetail.setLayoutManager(new GridLayoutManager(context,2));
                         roomno.setText(homeViewModels.get(getAdapterPosition()).getRoom_no());
                         guests.setText(homeViewModels.get(getAdapterPosition()).getNo_guest());
                         since.setText(getDate(homeViewModels.get(getAdapterPosition()).getCreated_at()));
-                        orderinsdetails.setText(homeViewModels.get(getAdapterPosition()).getDetails());
+                        if (homeViewModels.get(getAdapterPosition()).getDetails() != null) {
+                            orderinsdetails.setText(homeViewModels.get(getAdapterPosition()).getDetails());
+
+                        }
+                        else{
+                            orderinsdetails.setText("-");
+
+                        }
                         HomeAdapter.Order_ItemAdapterdetail order_itemAdapterdetail=new HomeAdapter.Order_ItemAdapterdetail(homeViewModels.get(getAdapterPosition()).getItems(),context);
                         orderitemsdetail.setAdapter(order_itemAdapterdetail);
                         LinearLayout colorimage=dialog.findViewById(R.id.colorimage);
                         guests.setText(homeViewModels.get(getAdapterPosition()).getNo_guest());
+                        if(homeViewModels.get(getAdapterPosition()).getStatus().equals("New Order")){
+                            accepted.setText("-");
+                        }
+                        else{
+                            accepted.setText(getDate(homeViewModels.get(getAdapterPosition()).getConfirm_at()));
 
-                        if(homeViewModels.get(getAdapterPosition()).getStatus().equals("2")){
+                        }
+
+                        if(homeViewModels.get(getAdapterPosition()).getStatus().equals("New Order")){
                             colorimage.setBackgroundColor(context.getResources().getColor(R.color.red));
                             since.setTextColor(context.getResources().getColor(R.color.gray));
                             roomno.setTextColor(context.getResources().getColor(R.color.mehroon));
 
                         }
-                        else if(homeViewModels.get(getAdapterPosition()).getStatus().equals("3")){
+                        else{
                             colorimage.setBackgroundColor(context.getResources().getColor(R.color.light_green));
                             since.setTextColor(context.getResources().getColor(R.color.gray));
                             roomno.setTextColor(context.getResources().getColor(R.color.mogiya));
-
-
-                        }
-                        else{
-                            colorimage.setBackgroundColor(context.getResources().getColor(R.color.lightgrey));
-                            since.setTextColor(context.getResources().getColor(R.color.gray));
-                            roomno.setTextColor(context.getResources().getColor(R.color.gray));
 
 
                         }
@@ -670,6 +770,43 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
+                            }
+                        });
+
+
+                        dispatchbutton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(homeViewModels.get(getAdapterPosition()).getStatus().equals("New Order")){
+                                    if(Network.isNetworkAvailable(getActivity())){
+                                        setAccept(homeViewModels.get(getAdapterPosition()).getOrder_id());
+                                        dialog.dismiss();
+                                    }
+                                   else if(Network.isNetworkAvailable2(getActivity())){
+                                        setAccept(homeViewModels.get(getAdapterPosition()).getOrder_id());
+                                        dialog.dismiss();
+
+                                    }
+                                   else{
+
+                                    }
+
+                                }
+                                else{
+                                    if(Network.isNetworkAvailable(getActivity())){
+                                        setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
+                                        dialog.dismiss();
+
+                                    }
+                                    else if(Network.isNetworkAvailable2(getActivity())){
+                                        setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
+                                        dialog.dismiss();
+
+                                    }
+                                    else{
+
+                                    }
+                                }
                             }
                         });
 
@@ -707,45 +844,89 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
                     if (elapsedDays == 0) {
 
                         if (hours == 00 || hours == 0) {
-                            if (minutes < 30) {
-                                orderrecived.setText(String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
-                                orderstatus.setTextColor(context.getResources().getColor(R.color.mogiya));
-                                orderrecived.setTextColor(Color.parseColor("#000000"));
-                                orderstatus.setText(mitem.getStatus());
-
-
-                            } else {
+                            if(mitem.getStatus().equals("New Order")){
                                 orderrecived.setText(String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
                                 orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
                                 orderrecived.setTextColor(Color.parseColor("#000000"));
                                 orderstatus.setText(mitem.getStatus());
 
-                            }
+                            }else{
+
+                                orderrecived.setText(String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mogiya));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());}
+
+
+
+
+
 
                         } else if (hours == 01 || hours == 1) {
-                            orderrecived.setText(String.valueOf(hours) + " hr : " + String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
-                            orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
-                            orderrecived.setTextColor(Color.parseColor("#000000"));
-                            orderstatus.setText(mitem.getStatus());
+                            if (mitem.getStatus().equals("New Order")) {
+                                orderrecived.setText(String.valueOf(hours) + " hr : " + String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+
+                            } else {
+
+                                orderrecived.setText(String.valueOf(hours) + " hr : " + String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mogiya));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+                            }
+
+
 
                         } else {
-                            orderrecived.setText(String.valueOf(hours) + " hrs : " + String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
-                            orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
-                            orderrecived.setTextColor(Color.parseColor("#000000"));
-                            orderstatus.setText(mitem.getStatus());
+                            if (mitem.getStatus().equals("New Order")) {
+                                orderrecived.setText(String.valueOf(hours) + " hrs : " + String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+
+                            } else {
+
+                                orderrecived.setText(String.valueOf(hours) + " hrs : " + String.valueOf(minutes) + " m : " + String.valueOf(seconds) + " s");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mogiya));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+                            }
+
                         }
                     } else {
                         if (elapsedDays == 1 || elapsedDays == 01) {
-                            orderrecived.setText(String.valueOf(elapsedDays) + " Day");
-                            orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
-                            orderrecived.setTextColor(Color.parseColor("#000000"));
-                            orderstatus.setText(mitem.getStatus());
+                            if (mitem.getStatus().equals("New Order")) {
+                                orderrecived.setText(String.valueOf(elapsedDays) + " Day");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+
+                            } else {
+
+                                orderrecived.setText(String.valueOf(elapsedDays) + " Day");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mogiya));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+                            }
+
                         } else {
-                            orderrecived.setText(String.valueOf(elapsedDays) + " Days");
-                            orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
-                            orderrecived.setTextColor(Color.parseColor("#000000"));
-                            orderstatus.setText(mitem.getStatus());
-                        }
+                            if (mitem.getStatus().equals("New Order")) {
+                                orderrecived.setText(String.valueOf(elapsedDays) + " Days");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mehroon));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+
+                            } else {
+
+                                orderrecived.setText(String.valueOf(elapsedDays) + " Days");
+                                orderstatus.setTextColor(context.getResources().getColor(R.color.mogiya));
+                                orderrecived.setTextColor(Color.parseColor("#000000"));
+                                orderstatus.setText(mitem.getStatus());
+                            }
+
+                    }
                     }
                 }catch (Exception e){
 
@@ -857,5 +1038,25 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
             return date;
         }
     }
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<HomeViewModel.Data> filterdNames = new ArrayList<>();
 
+        //looping through existing elements
+        for (HomeViewModel.Data s :queuelist) {
+            //if the existing elements contains the search input
+            if (s.getRoom_no().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        homeAdapter.filterList(filterdNames);
+    }
+    public void tryAnimation(View view) {
+        Animation animation = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_in_left);
+        if (view != null)
+            view.startAnimation(animation);
+    }
 }

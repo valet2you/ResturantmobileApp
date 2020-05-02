@@ -30,6 +30,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
     ParentAdapter parentAdapter;
     ShimmerRecyclerView shimmerRecyclerView;
     Order_ItemAdapterdetail order_itemAdapterdetail;
+    static public boolean isvisisble=true;
+    static  public ImageView imgBell;
+    static public LinearLayout neworderss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         sessionManager=new SessionManager(MainActivity.this);
         sessionManagerFCM=new SessionManagerFCM(MainActivity.this);
-
+         imgBell=  findViewById(R.id.bell);
+         imgBell.setImageResource(R.mipmap.calling);
+         imgBell.setVisibility(View.INVISIBLE);
+         neworderss=findViewById(R.id.neworderss);
         final Typeface font = Typeface.createFromAsset(
                 getAssets(),
                 "font/Roboto-Regular.ttf");
@@ -178,12 +186,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(history.getText().toString().equals("ORDERS HISTORY")) {
+                    isvisisble=false;
                     history.setText("DASHBOARD");
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.content_view, OrderHistory.newInstance())
                             .commitNow();
                 }
                 else{
+                    isvisisble=true;
+
                     history.setText("ORDERS HISTORY");
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.content_view, MainFragment.newInstance())
@@ -708,6 +719,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -764,6 +777,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Menu login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -818,6 +833,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Menu login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -865,6 +882,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -912,6 +931,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -970,6 +991,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -1026,6 +1049,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(response.code()==401){
                     Action login = response.body();
                     Toast.makeText(MainActivity.this, "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+                    finish();
                 }
                 else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -1095,10 +1120,18 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if(isvisisble==true) {
+                imgBell.setVisibility(View.VISIBLE);
+                AnimateBell();
 
-                    Fragment fragment1 = new MainFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.content_view, fragment1, fragment1.getClass().getSimpleName()).addToBackStack(null).commit();
-
+                Fragment fragment1 = new MainFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_view, fragment1, fragment1.getClass().getSimpleName()).addToBackStack(null).commit();
+            }
+            else {
+                isvisisble=false;
+                imgBell.setVisibility(View.VISIBLE);
+                AnimateBell();
+            }
 
 
 
@@ -1177,5 +1210,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    public void AnimateBell() {
+        Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shakeanimation);
+
+        imgBell.setAnimation(shake);
+
+    }
 
 }

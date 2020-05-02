@@ -118,9 +118,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.viewholder>{
 
 
         }
-         if(holder.mitem.getItems().size()>4){
+         if(holder.mitem.getItems().size()>6){
              holder.more.setVisibility(View.VISIBLE);
-             holder.more.setText(String.valueOf(holder.mitem.getItems().size()-4));
+             holder.more.setText(String.valueOf(holder.mitem.getItems().size()-6)+" More");
          }
          else{
              holder.more.setVisibility(View.GONE);

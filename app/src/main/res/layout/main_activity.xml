@@ -22,6 +22,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:backgroundTint="@color/white"
             android:elevation="0dp"
             app:elevation="0dp"
             android:background="?attr/colorPrimary"
@@ -69,6 +70,7 @@
                             android:layout_width="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="10dp"
+                            android:id="@+id/neworderss"
                             android:background="@drawable/border"
                             android:orientation="horizontal"
                             android:layout_height="40dp">
@@ -85,7 +87,7 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_weight="1"
                                     android:text="New Orders"
-                                    android:textColor="#FF0000"
+                                    android:textColor="@color/blue"
 
                                     android:textSize="14sp" />
                                 <TextView
@@ -103,6 +105,12 @@
 
 
                             </LinearLayout>
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:src="@mipmap/calling"
+                                android:id="@+id/bell"
+                                android:layout_marginBottom="10dp"
+                                android:layout_height="20dp"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -125,7 +133,7 @@
                                     android:layout_weight="1"
                                     android:layout_marginLeft="8dp"
 
-                                    android:textColor="#FF0000"
+                                    android:textColor="#FF9800"
                                     android:id="@+id/busytray"
                                     android:textSize="14sp"
                                     android:layout_height="wrap_content"/>
@@ -161,7 +169,7 @@
                                     android:layout_width="wrap_content"
                                     android:text="In Kitchen"
                                     android:layout_weight="1"
-                                    android:textColor="#FF0000"
+                                    android:textColor="@color/mogiya"
                                     android:id="@+id/busyassociate"
                                     android:textSize="14sp"
                                     android:layout_marginLeft="8dp"

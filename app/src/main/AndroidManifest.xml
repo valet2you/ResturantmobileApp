@@ -29,6 +29,10 @@
         android:screenOrientation="landscape"
         tools:ignore="LockedOrientationActivity">
 
+        </activity><activity android:name=".ui.Support.Internetconnection"
+        android:screenOrientation="landscape"
+        tools:ignore="LockedOrientationActivity">
+
         </activity>
         <service
             android:name=".ui.FCM.FirebaseMessagingService"

@@ -18,33 +18,32 @@
             android:id="@+id/parent"
 
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="wrap_content"
+                android:layout_height="35dp"
                 android:background="@mipmap/diagonal1"
-                android:paddingLeft="10dp"
                 android:backgroundTint="@color/marriott"
-                android:paddingRight="10dp"
-                android:layout_height="wrap_content">
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-        <TextView
-            android:id="@+id/category"
-            style="@style/Base.TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/category"
+                    style="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            android:layout_alignParentTop="true"
-            android:padding="10dp"
-            android:textAllCaps="true"
-            android:textSize="18dp"
-            android:text="Hello World"
-            android:textColor="@color/white"
-            />
+                    android:layout_alignParentTop="true"
+                    android:text="Hello World"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
             </LinearLayout>
             <ToggleButton
                 android:id="@+id/toggleButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:background="@android:color/transparent"
 
                 android:button="@drawable/togglestate"
@@ -62,7 +61,6 @@
             android:layout_below="@+id/parent"
             app:shimmer_recycler_layout="@layout/layout_demo_grid"
             app:shimmer_recycler_item_count="10"
-            android:layout_margin="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_height="wrap_content"
            />

@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.SystemClock;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderHistory extends Fragment implements SearchView.OnQueryTextListener {
+public class OrderHistory extends Fragment {
 
     private OrderHistoryViewModel mViewModel;
     ShimmerRecyclerView recyclerview;
@@ -57,9 +60,9 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
     TextView orderacceptedtext;
     TextView norecord;
    ArrayList<Order.Data> orderslist;
-    SearchView searchView;
     SessionManager sessionManager;
-
+    AutoCompleteTextView searchView;
+    HistoryAdapter homeAdapter;
     public static OrderHistory newInstance() {
         return new OrderHistory();
     }
@@ -68,6 +71,8 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.order_history_fragment, container, false);
+        searchView =  view.findViewById(R.id.searchView);
+
         sessionManager=new SessionManager(getActivity());
         recyclerview=view.findViewById(R.id.sidelist);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
@@ -99,41 +104,34 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
        else {
 
         }
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
 
         return view;
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
         //  drawer_adapter=new ReleaseCarByToken.MyItemRecyclerViewAdapter(dashboards,getActivity());
         //recyclerView.setAdapter(drawer_adapter);
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
 
-        MenuItem search = menu.findItem(R.id.search);
-        searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
-        searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        searchView.setBackgroundColor(Color.DKGRAY);
-
-        // search(searchView);
-        searchView.setOnQueryTextListener(this);  }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
     private void GetMenu() {
         // display a progress dialog
         recyclerview.showShimmer();
@@ -151,12 +149,12 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
                     orderslist=login.getData();
                     if(orderslist.size()!=0){
 
-                        HistoryAdapter homeAdapter=new HistoryAdapter(getActivity(),orderslist);
+                         homeAdapter=new HistoryAdapter(getActivity(),orderslist);
                         recyclerview.setAdapter(homeAdapter);
                         norecord.setVisibility(View.GONE);
                     }
                     else{
-                        HistoryAdapter homeAdapter=new HistoryAdapter(getActivity(),orderslist);
+                         homeAdapter=new HistoryAdapter(getActivity(),orderslist);
                         recyclerview.setAdapter(homeAdapter);
                         norecord.setVisibility(View.VISIBLE);
                     }
@@ -168,6 +166,8 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
                 else if(response.code()==401){
                     Order login = response.body();
                     Toast.makeText(getActivity(), "Unauthorised", Toast.LENGTH_SHORT).show();
+                    sessionManager.logoutsession();
+
                 }
                 else if(response.code()==500){
                     Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -191,6 +191,22 @@ public class OrderHistory extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
+    }
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<Order.Data> filterdNames = new ArrayList<>();
+
+        //looping through existing elements
+        for (Order.Data s :orderslist) {
+            //if the existing elements contains the search input
+            if (s.getRoom_no().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        homeAdapter.filterList(filterdNames);
     }
 
 }

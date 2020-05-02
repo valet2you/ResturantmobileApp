@@ -11,6 +11,27 @@
         android:orientation="vertical"
 
         android:layout_height="match_parent">
+        <AutoCompleteTextView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/whitebackgroudblack"
+            android:layout_height="wrap_content"
+            android:hint="Search for Room No"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/search"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:iconifiedByDefault="false"
+            android:layout_alignParentTop="true"
+            />
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardBackgroundColor="@color/white"

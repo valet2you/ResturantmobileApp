@@ -89,8 +89,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         CharSequence name = "VServe";// The user-visible name of the channel.
         Notification notification;
         int importance = NotificationManager.IMPORTANCE_HIGH;
-// Create a notification and set the notification channel.
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher).copy(Bitmap.Config.ARGB_8888, true);
+       // Create a notification and set the notification channel.
+        //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher).copy(Bitmap.Config.ARGB_8888, true);
         NotificationChannel mChannel = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
@@ -98,7 +98,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             notification = new Notification.Builder(FirebaseMessagingService.this)
                     .setContentTitle("VServe ++ - New Request Found upar!!!")
                     .setContentText(messageBody)
-                    .setLargeIcon(bm)
+                    .setLargeIcon(logo)
                     .setSmallIcon(R.mipmap.ic_launcher)
 
                     .setAutoCancel(true)
@@ -109,7 +109,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             notification = new Notification.Builder(FirebaseMessagingService.this)
                     .setContentTitle("VServe ++ - New Request Found !!!")
                     .setContentText(messageBody)
-                    .setLargeIcon(bm)
+                    .setLargeIcon(logo)
 
                     .setSmallIcon(R.mipmap.ic_launcher).setAutoCancel(true)
                     .setContentIntent(pendingIntent).build();

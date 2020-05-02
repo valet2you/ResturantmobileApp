@@ -4,15 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <AutoCompleteTextView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/whitebackgroudblack"
+            android:layout_height="wrap_content"
+            android:hint="Search for Room No"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/search"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:iconifiedByDefault="false"
+            android:layout_alignParentTop="true"
+            />
 
-    <com.todkars.shimmer.ShimmerRecyclerView
+        <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
+            android:layout_below="@+id/searchView"
         android:layout_height="match_parent"
         android:text="MainFragment"
         android:padding="5dp"
@@ -25,10 +48,11 @@
             android:text="No record Forund"
             android:gravity="center"
             android:id="@+id/norecord"
+            android:layout_below="@+id/searchView"
             android:visibility="gone"
             android:textColor="@color/gray"
             android:textSize="12sp"
             android:layout_height="match_parent"/>
-    </FrameLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
