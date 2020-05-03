@@ -1,12 +1,10 @@
 package com.viralops.touchlessfoodordering;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,23 +14,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,11 +41,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.material.button.MaterialButton;
-import com.squareup.picasso.Picasso;
+import com.google.android.material.chip.Chip;
 import com.todkars.shimmer.ShimmerRecyclerView;
 import com.viralops.touchlessfoodordering.ui.API.RetrofitClientInstance;
 import com.viralops.touchlessfoodordering.ui.Support.Network;
-import com.viralops.touchlessfoodordering.ui.Support.RoundedCornersTransformation;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManagerFCM;
 import com.viralops.touchlessfoodordering.ui.history.OrderHistory;
@@ -57,6 +55,7 @@ import com.viralops.touchlessfoodordering.ui.model.Menucategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     static public TextView totaltext;
     static public TextView totalorders;
     private TextView text;
+    RecyclerView recyclerView;
+     Dialog menudialog;
     private TextView text1;
     private CardView order;
     private CardView menu;
@@ -226,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 shimmerRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
                  TextView title=dialog.findViewById(R.id.hotel);
                  title.setTypeface(font);
+                 title.setText(sessionManager.getPorchName());
                  final MaterialButton menubutton=dialog.findViewById(R.id.menubutton);
                  final MaterialButton backbutton=dialog.findViewById(R.id.closebutton);
                  parentAdapter=new ParentAdapter(menuslist,MainActivity.this);
@@ -244,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable s) {
+
                         filter1(s.toString());
                     }
                 });
@@ -259,34 +262,34 @@ public class MainActivity extends AppCompatActivity {
                 menubutton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   final Dialog dialog = new Dialog(MainActivity.this);
+                    menudialog = new Dialog(MainActivity.this);
                    // Include dialog.xml file
-                   dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                   menudialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                    // getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                   dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                   menudialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-                   dialog.setContentView(R.layout.categorypopup);
+                   menudialog.setContentView(R.layout.categorypopup);
                    int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.99);
                    int height = (int) (getResources().getDisplayMetrics().heightPixels * 0.99);
 
-                   dialog.getWindow().setLayout(width, height);
-                   dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2;
+                   menudialog.getWindow().setLayout(width, height);
+                   menudialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2;
 
                   // dialog.setCancelable(true);
-                   dialog.setCanceledOnTouchOutside(true);
+                   menudialog.setCanceledOnTouchOutside(true);
                   // setFinishOnTouchOutside(true);
                    // Set dialog title
-                   dialog.setTitle("Select Category");
-                   dialog.show();
-                   RecyclerView recyclerView=dialog.findViewById(R.id.recycler);
+                   menudialog.setTitle("Select Category");
+                   menudialog.show();
+                    recyclerView=menudialog.findViewById(R.id.recycler);
                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
                    CartegoryAdapter menupopupadapeter=new CartegoryAdapter(categorylist,MainActivity.this);
                    recyclerView.setAdapter(menupopupadapeter);
-                  ImageView close=dialog.findViewById(R.id.close);
+                  ImageView close=menudialog.findViewById(R.id.close);
                   close.setOnClickListener(new View.OnClickListener() {
                       @Override
                       public void onClick(View v) {
-                          dialog.dismiss();
+                          menudialog.dismiss();
                       }
                   });
                 /*   menubutton.setVisibility(View.GONE);
@@ -350,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
 
     public class Order_ItemAdapterdetail extends  RecyclerView.Adapter<Order_ItemAdapterdetail.ViewHolder>{
         ArrayList<Menu.Items> order_items;
+        ArrayList<Menu.Items> continentList;
         Context context;
         String category;
         String enabled;
@@ -359,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
             this.context = context;
             this.category=category;
             this.enabled=enabled;
+            continentList=new ArrayList<>();
         }
 
         @NonNull
@@ -408,11 +413,39 @@ public class MainActivity extends AppCompatActivity {
                 holder.category.setImageResource(R.mipmap.nonveggg);
 
             }
-            Picasso.with(context).load(R.mipmap.dish2).transform(new RoundedCornersTransformation(10,10)).into(holder.dish);
-          //  holder.dish.setVisibility(View.VISIBLE);
+
+            if (holder.mitem.getImage() != null) {
+               // byte[] decodedString = Base64.decode(holder.mitem.getImage(), Base64.DEFAULT);
+                String base64Image = holder.mitem.getImage().split(",")[1];
+
+                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                holder.dish.setImageBitmap(decodedByte);
+               // Picasso.with(context).load().transform(new RoundedCornersTransformation(10, 10)).into(holder.dish);
+                //  holder.dish.setVisibility(View.VISIBLE);
+                holder.dish.setVisibility(View.VISIBLE);
+
+            }
+            else{
+                holder.dish.setVisibility(View.GONE);
+            } if (holder.mitem.getTags() != null) {
+                String strings=holder.mitem.getTags().replaceAll("/","").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"","");
+
+                //Split string with comma
+              String[]  namesArray = strings.split(",");
+                Arrays.asList(namesArray);
+                TagsAdapter tagsAdapter=new TagsAdapter(namesArray,context);
+                holder.spicy.setAdapter(tagsAdapter);
+                holder.spicy.setVisibility(View.VISIBLE);
 
 
-            holder.spicy.setVisibility(View.VISIBLE);
+               // byte[] decodedString = Base64.decode(holder.mitem.getImage(), Base64.DEFAULT);
+            }
+            else{
+                holder.spicy.setVisibility(View.GONE);
+            }
+
 
            /* if(holder.mitem.getImage().toString().equals(null)||holder.mitem.getImage().toString().equals("")){
             }
@@ -452,6 +485,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+
         }
 
         @Override
@@ -467,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
             TextView ingredinets;
             ImageView dish;
             ImageView category;
-            TextView spicy;
+            RecyclerView spicy;
             LinearLayout gradeout;
             ToggleButton toggleButton1;
 
@@ -483,6 +517,7 @@ public class MainActivity extends AppCompatActivity {
                 price1=itemView.findViewById(R.id.price1);
                 ingredinets=itemView.findViewById(R.id.ingredinets);
                 spicy=itemView.findViewById(R.id.spicy);
+                spicy.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
                 dish=itemView.findViewById(R.id.dish);
                 gradeout=itemView.findViewById(R.id.gradeout);
                 toggleButton1=itemView.findViewById(R.id.toggleButton1);
@@ -617,6 +652,70 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public class TagsAdapter extends  RecyclerView.Adapter<TagsAdapter.ViewHolder>{
+        String[] order_items;
+        Context context;
+        String enabled;
+
+        public TagsAdapter(String[] order_items, Context context) {
+            this.order_items = order_items;
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public TagsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout, parent, false);
+            return new TagsAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final TagsAdapter.ViewHolder holder, int position) {
+
+
+            holder.title.setText(capitailizeWord(order_items[position]));
+            if(order_items[position].equals("Spicy")||order_items[position].equals("spicy")||order_items[position].equals("SPICY")){
+                holder.title.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#C32B20")));
+
+            }
+            else {
+                int[] androidColors = getResources().getIntArray(R.array.androidcolors);
+                int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+                holder.title.setChipBackgroundColor(ColorStateList.valueOf(randomAndroidColor));
+            }
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return order_items.length;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            Chip title;
+            String[] mitem;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                title=itemView.findViewById(R.id.chipentry);
+
+
+                final Typeface font = Typeface.createFromAsset(
+                        getAssets(),
+                        "font/Roboto-Regular.ttf");
+                Typeface font1 = Typeface.createFromAsset(
+                        getAssets(),
+                        "font/Roboto-Thin.ttf");
+
+                title.setTypeface(font);
+
+            }
+        }
+
+
+
+    }
 
     public class CartegoryAdapter extends  RecyclerView.Adapter<CartegoryAdapter.ViewHolder>{
         ArrayList<Menucategory> order_items;
@@ -636,10 +735,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull CartegoryAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CartegoryAdapter.ViewHolder holder, final int position) {
             holder.mitem=order_items.get(position);
             holder.title.setText(holder.mitem.getName());
             holder.category1.setText(String.valueOf(holder.mitem.getItems().size()));
+
 
         }
 
@@ -670,6 +770,14 @@ public class MainActivity extends AppCompatActivity {
 
                 title.setTypeface(font);
                 category1.setTypeface(font);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shimmerRecyclerView.smoothScrollToPosition(getAdapterPosition());
+                        menudialog.dismiss();
+
+                    }
+                });
 
             }
         }
@@ -678,22 +786,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.dashboard_menu, menu);
-        menu.setHeaderTitle("");
-        menu.add(1,1,1,"Rice");
-        menu.add("Breakfast");
-        menu.add("Burgers and Sandwitch");
-        menu.add("Appetizers");
-        menu.add("Main Course");
-        menu.add("Rice");
-        menu.add("Pizza and Pasta");
-        menu.add("fried Rice and Noodles");
 
-    }
     private void Logout() {
         // display a progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
@@ -1095,6 +1188,7 @@ public class MainActivity extends AppCompatActivity {
  private void filter1(String text) {
         //new array list that will hold the filtered data
         ArrayList<Menu.Items> filterdNames1 = new ArrayList<>();
+        ArrayList<Menu.menu_data> filterdNames2 = new ArrayList<>();
 
         //looping through existing elements
         for (Menu.menu_data s : menuslist) {
@@ -1104,13 +1198,21 @@ public class MainActivity extends AppCompatActivity {
                     //adding the element to filtered list
                     filterdNames1.add(s1);
                 }
-        }
+
+
+            }
+            if (s.getName().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames2.add(s);
+            }
             order_itemAdapterdetail.filterList(filterdNames1);
+            parentAdapter.filterList(filterdNames2);
 
 
         }
 
-        //calling a method of the adapter class and passing the filtered list
+
+     //calling a method of the adapter class and passing the filtered list
     }
 
     // Showing the status in Snackbar
@@ -1215,6 +1317,29 @@ public class MainActivity extends AppCompatActivity {
 
         imgBell.setAnimation(shake);
 
+    }
+    // Method to convert the string
+    static String capitailizeWord(String str) {
+        StringBuffer s = new StringBuffer();
+
+        // Declare a character of space
+        // To identify that the next character is the starting
+        // of a new word
+        char ch = ' ';
+        for (int i = 0; i < str.length(); i++) {
+
+            // If previous character is space and current
+            // character is not space then it shows that
+            // current letter is the starting of the word
+            if (ch == ' ' && str.charAt(i) != ' ')
+                s.append(Character.toUpperCase(str.charAt(i)));
+            else
+                s.append(str.charAt(i));
+            ch = str.charAt(i);
+        }
+
+        // Return the string with trimming
+        return s.toString().trim();
     }
 
 }

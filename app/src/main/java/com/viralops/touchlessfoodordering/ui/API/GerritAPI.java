@@ -21,6 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface GerritAPI {
@@ -57,7 +58,7 @@ public interface GerritAPI {
     Call<com.viralops.touchlessfoodordering.ui.model.Header> getHeader(@Header("Authorization") String Authorization);
 
     @GET(BuildConfig.get_order_history)
-    Call<Order> getHistory(@Header("Authorization") String Authorization);
+    Call<Order> getHistory(@Header("Authorization") String Authorization, @Query("show") String show);
 
 
 

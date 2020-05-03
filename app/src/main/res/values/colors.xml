@@ -6,18 +6,28 @@
     <color name="light_green">#d4edda</color>
     <color name="red">#f8d7da</color>
     <color name="reddark">#FF0000</color>
+    <color name="pink">#D8497A</color>
     <color name="mehroon">#721c24</color>
     <color name="mogiya">#0c5460</color>
     <color name="black">#000000</color>
     <color name="orange">#fff3cd</color>
     <color name="orangetext">#856404</color>
-    <color name="bluetext">#03A9F4</color>
+    <color name="bluetext">#4293B8</color>
     <color name="marriott">#b51f3d</color>
+    <color name="redblood">#C32B20</color>
     <color name="gray">#666666</color>
     <color name="lightgrey">#e2e3e5</color>
     <color name="drakgrey">#C4C4C5</color>
     <color name="blue">#3B5998</color>
+    <color name="lightblue">#789FF1</color>
     <color name="white">#FFFFFF</color>
     <color name="graybuttton">#EEEEEE</color>
+    <integer-array name="androidcolors">
+        <item>@color/bluetext</item>
+        <item>@color/pink</item>
+        <item>@color/orangetext</item>
+        <item>@color/mogiya</item>
+
+    </integer-array>
 
 </resources>

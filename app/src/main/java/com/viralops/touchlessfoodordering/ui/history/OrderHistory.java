@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +65,7 @@ public class OrderHistory extends Fragment {
     SessionManager sessionManager;
     AutoCompleteTextView searchView;
     HistoryAdapter homeAdapter;
+    ImageView filter;
     public static OrderHistory newInstance() {
         return new OrderHistory();
     }
@@ -74,8 +77,10 @@ public class OrderHistory extends Fragment {
         searchView =  view.findViewById(R.id.searchView);
 
         sessionManager=new SessionManager(getActivity());
+
         recyclerview=view.findViewById(R.id.sidelist);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        filter=view.findViewById(R.id.filter);
         roomno=view.findViewById(R.id.roomno);
         guest=view.findViewById(R.id.guest);
         orderreceivedtext=view.findViewById(R.id.orderreceivedtext);
@@ -96,10 +101,10 @@ public class OrderHistory extends Fragment {
                 "font/verdana.ttf");
         orderslist=new ArrayList<>();
         if(Network.isNetworkAvailable(getActivity())){
-            GetMenu();
+            GetMenu("today");
         }
         else if(Network.isNetworkAvailable2(getActivity())){
-            GetMenu();
+            GetMenu("today");
         }
        else {
 
@@ -120,6 +125,13 @@ public class OrderHistory extends Fragment {
                 filter(s.toString());
             }
         });
+      registerForContextMenu(filter);
+       filter.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               getActivity().openContextMenu(v);
+           }
+       });
 
         return view;
     }
@@ -132,14 +144,14 @@ public class OrderHistory extends Fragment {
 
 
 
-    private void GetMenu() {
+    private void GetMenu(String show) {
         // display a progress dialog
         recyclerview.showShimmer();
 /*
         String credentials = Credentials.basic("admin", "LetsValet2You");
 */
 
-        (RetrofitClientInstance.getApiService().getHistory(sessionManager.getACCESSTOKEN())).enqueue(new Callback<Order>() {
+        (RetrofitClientInstance.getApiService().getHistory(sessionManager.getACCESSTOKEN(),show)).enqueue(new Callback<Order>() {
             @Override
             public void onResponse(@NonNull Call<Order> call, @NonNull Response<Order> response) {
 
@@ -208,5 +220,73 @@ public class OrderHistory extends Fragment {
         //calling a method of the adapter class and passing the filtered list
         homeAdapter.filterList(filterdNames);
     }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.dashboard_menu, menu);
+        menu.setHeaderTitle("");
+
+        menu.add(1,1,1,"Today");
+        menu.add(1,2,2,"Yesterday");
+        menu.add(1,3,3,"Last Week");
+        menu.add(1,4,4,"Last Month");
+
+
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+                case 1:
+                // your first action code
+                    if(Network.isNetworkAvailable(getActivity())){
+                        GetMenu("today");
+                    }
+                    else if(Network.isNetworkAvailable2(getActivity())){
+                        GetMenu("today");
+                    }
+                    else {
+                    }
+
+                return true;
+                case 2:
+                // your second action code
+                    if(Network.isNetworkAvailable(getActivity())){
+                        GetMenu("yesterday");
+                    }
+                    else if(Network.isNetworkAvailable2(getActivity())){
+                        GetMenu("yesterday");
+                    }
+                    else {
+                    }
+                return true;
+                case 3:
+                // your second action code
+                    if(Network.isNetworkAvailable(getActivity())){
+                        GetMenu("weekly");
+                    }
+                    else if(Network.isNetworkAvailable2(getActivity())){
+                        GetMenu("weekly");
+                    }
+                    else {
+                    }
+                return true;
+                case 4:
+                    if(Network.isNetworkAvailable(getActivity())){
+                        GetMenu("monthly");
+                    }
+                    else if(Network.isNetworkAvailable2(getActivity())){
+                        GetMenu("monthly");
+                    }
+                    else {
+                    }
+                // your second action code
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
 
 }

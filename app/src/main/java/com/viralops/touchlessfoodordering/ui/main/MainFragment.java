@@ -614,14 +614,57 @@ public class MainFragment extends Fragment {
 
                     }
                     else{
-                        if(Network.isNetworkAvailable(getActivity())){
-                            setDispatch(holder.mitem.getOrder_id());
-                        }else if(Network.isNetworkAvailable2(getActivity())){
-                            setDispatch(holder.mitem.getOrder_id());
-                        }
-                        else{
 
-                        }
+                        //super.onBackPressed();
+                        final Dialog dialog = new Dialog(getActivity());
+                        // Include dialog.xml file
+
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                        // dialog.getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT);            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.delet_dialog);
+                        int width1 = (int)(getResources().getDisplayMetrics().widthPixels*0.50);
+                        int height1 = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+                        dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+
+                        dialog.getWindow().setLayout(width1, height1);
+
+                        dialog.setCancelable(false);
+                        // Set dialog title
+                        dialog.setTitle("");
+                        dialog.show();
+                        TextView textView=dialog.findViewById(R.id.text) ;
+                        textView.setText("Send to History?");
+                        // String textstring="Do you confirm that room is cleared and trolley is back to IRD operation? or"+<b>
+                        TextView confirm=dialog.findViewById(R.id.cancel) ;
+                        TextView cancel1=dialog.findViewById(R.id.confirm);
+
+                        confirm.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                dialog.dismiss();
+                            }
+                        });
+                        cancel1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(Network.isNetworkAvailable(getActivity())){
+                                    setDispatch(holder.mitem.getOrder_id());
+                                    dialog.dismiss();
+
+                                }
+                                else if(Network.isNetworkAvailable2(getActivity())){
+                                    setDispatch(holder.mitem.getOrder_id());
+                                    dialog.dismiss();
+
+                                }
+                                else{
+
+                                }
+                            }
+                        });
+
                     }
 
 
@@ -793,19 +836,58 @@ public class MainFragment extends Fragment {
 
                                 }
                                 else{
-                                    if(Network.isNetworkAvailable(getActivity())){
-                                        setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
-                                        dialog.dismiss();
 
-                                    }
-                                    else if(Network.isNetworkAvailable2(getActivity())){
-                                        setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
-                                        dialog.dismiss();
+                                    //super.onBackPressed();
+                                    final Dialog dialog1 = new Dialog(getActivity());
+                                    // Include dialog.xml file
 
-                                    }
-                                    else{
+                                    dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                                    }
+                                    // dialog.getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT);            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                    dialog1.setContentView(R.layout.delet_dialog);
+                                    int width1 = (int)(getResources().getDisplayMetrics().widthPixels*0.50);
+                                    int height1 = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+                                    dialog1.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+
+                                    dialog1.getWindow().setLayout(width1, height1);
+
+                                    dialog1.setCancelable(false);
+                                    // Set dialog title
+                                    dialog1.setTitle("");
+                                    dialog1.show();
+                                    TextView textView=dialog1.findViewById(R.id.text) ;
+                                    textView.setText("Send to History?");
+                                    // String textstring="Do you confirm that room is cleared and trolley is back to IRD operation? or"+<b>
+                                    TextView confirm=dialog1.findViewById(R.id.cancel) ;
+                                    TextView cancel1=dialog1.findViewById(R.id.confirm);
+
+                                    confirm.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            dialog1.dismiss();
+                                        }
+                                    });
+                                    cancel1.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if(Network.isNetworkAvailable(getActivity())){
+                                                setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
+                                                dialog1.dismiss();
+
+                                            }
+                                            else if(Network.isNetworkAvailable2(getActivity())){
+                                                setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
+                                                dialog1.dismiss();
+
+                                            }
+                                            else{
+
+                                            }
+                                        }
+                                    });
+
+
                                 }
                             }
                         });
@@ -1059,4 +1141,5 @@ public class MainFragment extends Fragment {
         if (view != null)
             view.startAnimation(animation);
     }
+
 }

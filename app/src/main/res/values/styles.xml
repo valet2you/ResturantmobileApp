@@ -7,7 +7,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
 
+        <!-- Change Overflow Menu ListView Item Height & Property -->
+        <item name="android:listPreferredItemHeightSmall">10dp</item>
+        <item name="android:listPreferredItemPaddingLeft">5dp</item>
+        <item name="android:listPreferredItemPaddingRight">5dp</item>
         <item name="android:elevation" tools:ignore="NewApi">0dp</item>
     </style>
 
@@ -56,5 +61,21 @@
     <style name="DialogAnimation_2">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
+    </style>
+    <!-- Change Overflow Menu ListView Divider Property -->
+    <style name="PopupMenuListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">#FF0000</item>
+        <item name="android:dividerHeight">2dp</item>
+    </style>
+
+    <!-- Change Overflow Menu ListView Text Size and Text Size -->
+    <style name="PopupMenuTextView" parent="@android:style/Theme.Holo.Light">
+        <item name="android:textColor">#00FF00</item>
+        <item name="android:textSize">5sp</item>
+    </style>
+
+    <!-- Change Overflow Menu Background -->
+    <style name="PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">#888888</item>
     </style>
 </resources>

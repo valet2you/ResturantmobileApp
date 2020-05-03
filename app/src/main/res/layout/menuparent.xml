@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@mipmap/diagonal1"
-                android:backgroundTint="@color/marriott"
+                android:backgroundTint="@color/gray"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -33,9 +33,9 @@
                     style="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                        android:layout_marginRight="32dp"
                     android:layout_alignParentTop="true"
-                    android:text="Hello World"
+                    android:text=""
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
