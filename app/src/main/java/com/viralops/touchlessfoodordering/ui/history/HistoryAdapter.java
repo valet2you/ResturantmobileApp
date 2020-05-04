@@ -121,7 +121,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
 
                      // dialog.getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT);            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                      dialog.setContentView(R.layout.history_detail);
-                     int width1 = (int)(context.getResources().getDisplayMetrics().widthPixels*0.38);
+                     int width1 = (int)(context.getResources().getDisplayMetrics().widthPixels*0.48);
                      int height1 = (int)(context.getResources().getDisplayMetrics().heightPixels*0.90);
                      dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
 
@@ -218,7 +218,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
         @Override
         public void onBindViewHolder(@NonNull Order_ItemAdapterdetail.ViewHolder holder, int position) {
             holder.mitem=order_items.get(position);
-            holder.name.setText(holder.mitem.getCount()+" X "+holder.mitem.getDetails());
+            holder.name.setText(holder.mitem.getCount()+" X "+holder.mitem.getName());
 
         }
 

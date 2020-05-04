@@ -106,10 +106,13 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.main_fragment, container, false);
         setHasOptionsMenu(true);
+
         homeAdapter=new HomeAdapter(getActivity(),queuelist);
 
         searchView =  view.findViewById(R.id.searchView);
         sessionManager=new SessionManager(getActivity());
+        sessionManager.setIsINternet("false");
+
         shimmerRecyclerView=view.findViewById(R.id.recyclerview);
         shimmerRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),5));
         norecord=view.findViewById(R.id.norecord);
@@ -123,9 +126,16 @@ public class MainFragment extends Fragment {
 
         }
         else{
-            Intent intent=new Intent(getActivity(), Internetconnection.class);
-            startActivity(intent);
-            this.getActivity().finish();
+            if (sessionManager.getIsINternet().equals("false")) {
+                Intent intent = new Intent(getActivity(), Internetconnection.class);
+                startActivity(intent);
+
+                sessionManager.setIsINternet("true");
+                this.getActivity().finish();
+
+            } else {
+
+            }
         }
 
         searchView.addTextChangedListener(new TextWatcher() {
@@ -442,7 +452,7 @@ public class MainFragment extends Fragment {
         });
 
     }
-    private void setDispatch(String id) {
+    private void setDispatch(String id, final int position) {
         // display a progress dialog
 /*
         String credentials = Credentials.basic("admin", "LetsValet2You");
@@ -455,15 +465,9 @@ public class MainFragment extends Fragment {
                 if(response.code()==201||response.code()==200){
                     Action  login = response.body();
                     Toast.makeText(getActivity(),login.getMessage(),Toast.LENGTH_SHORT).show();
-                    if(Network.isNetworkAvailable(getActivity())){
-                        GetMenu();
-                    }
-                    else if(Network.isNetworkAvailable2(getActivity())){
-                        GetMenu();
-                    }
-                    else{
-
-                    }
+                    queuelist.remove(position);
+                    // homeAdapter.notifyItemRemoved(getAdapterPosition());
+                    homeAdapter.notifyDataSetChanged();
 
                 }
                 else if(response.code()==401){
@@ -551,7 +555,7 @@ public class MainFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final HomeAdapter.viewholder holder, int position) {
+        public void onBindViewHolder(@NonNull final HomeAdapter.viewholder holder, final int position) {
             holder.mitem=homeViewModels.get(position);
             holder.roomno.setText(holder.mitem.getRoom_no());
             holder.guests.setText(holder.mitem.getNo_guest());
@@ -650,12 +654,14 @@ public class MainFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 if(Network.isNetworkAvailable(getActivity())){
-                                    setDispatch(holder.mitem.getOrder_id());
+
+                                    setDispatch(holder.mitem.getOrder_id(),position);
                                     dialog.dismiss();
 
                                 }
                                 else if(Network.isNetworkAvailable2(getActivity())){
-                                    setDispatch(holder.mitem.getOrder_id());
+                                    setDispatch(holder.mitem.getOrder_id(),position);
+
                                     dialog.dismiss();
 
                                 }
@@ -737,7 +743,7 @@ public class MainFragment extends Fragment {
 
                         // dialog.getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT);            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.setContentView(R.layout.detail_popup);
-                        int width1 = (int)(context.getResources().getDisplayMetrics().widthPixels*0.38);
+                        int width1 = (int)(context.getResources().getDisplayMetrics().widthPixels*0.48);
                         int height1 = (int)(context.getResources().getDisplayMetrics().heightPixels*0.90);
                         dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
 
@@ -872,13 +878,18 @@ public class MainFragment extends Fragment {
                                         @Override
                                         public void onClick(View v) {
                                             if(Network.isNetworkAvailable(getActivity())){
-                                                setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
+
+                                                 setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id(),getAdapterPosition());
                                                 dialog1.dismiss();
+                                                dialog.dismiss();
 
                                             }
                                             else if(Network.isNetworkAvailable2(getActivity())){
-                                                setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id());
+
+
+                                                setDispatch(homeViewModels.get(getAdapterPosition()).getOrder_id(),getAdapterPosition());
                                                 dialog1.dismiss();
+                                                dialog.dismiss();
 
                                             }
                                             else{
@@ -1037,7 +1048,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onBindViewHolder(@NonNull HomeAdapter.Order_ItemAdapter1.ViewHolder holder, int position) {
                 holder.mitem=order_items.get(position);
-                holder.name.setText(holder.mitem.getDetails());
+                holder.name.setText(holder.mitem.getName());
                 holder.quantity.setText(holder.mitem.getCount());
 
             }
@@ -1087,7 +1098,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onBindViewHolder(@NonNull HomeAdapter.Order_ItemAdapterdetail.ViewHolder holder, int position) {
                 holder.mitem=order_items.get(position);
-                holder.name.setText(holder.mitem.getCount()+" X "+holder.mitem.getDetails());
+                holder.name.setText(holder.mitem.getCount()+" X "+holder.mitem.getName());
 
             }
 

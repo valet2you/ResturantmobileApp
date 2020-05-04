@@ -176,6 +176,7 @@ public class HomeViewModel{
     public class Items
     {
         private String item_id;
+        private  String name;
 
         private String count;
 
@@ -196,6 +197,14 @@ public class HomeViewModel{
             return count;
         }
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public void setCount (String count)
         {
             this.count = count;
@@ -214,7 +223,7 @@ public class HomeViewModel{
         @Override
         public String toString()
         {
-            return "ClassPojo [item_id = "+item_id+", count = "+count+", details = "+details+"]";
+            return "ClassPojo [item_id = "+item_id+", count = "+count+", details = "+details+", name = "+name+"]";
         }
     }
 

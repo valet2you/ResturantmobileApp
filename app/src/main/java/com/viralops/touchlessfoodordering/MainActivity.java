@@ -44,6 +44,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.todkars.shimmer.ShimmerRecyclerView;
 import com.viralops.touchlessfoodordering.ui.API.RetrofitClientInstance;
+import com.viralops.touchlessfoodordering.ui.Support.Internetconnection;
 import com.viralops.touchlessfoodordering.ui.Support.Network;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManagerFCM;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         sessionManager=new SessionManager(MainActivity.this);
         sessionManagerFCM=new SessionManagerFCM(MainActivity.this);
+        sessionManager.setIsINternet("false");
          imgBell=  findViewById(R.id.bell);
          imgBell.setImageResource(R.mipmap.calling);
          imgBell.setVisibility(View.INVISIBLE);
@@ -346,7 +348,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else{
+            if (sessionManager.getIsINternet().equals("false")) {
+                Intent intent = new Intent(MainActivity.this, Internetconnection.class);
+                startActivity(intent);
 
+                sessionManager.setIsINternet("true");
+                finish();
+
+            } else {
+
+            }
         }
 
     }
@@ -568,10 +579,12 @@ public class MainActivity extends AppCompatActivity {
             holder.mitem=order_items.get(position);
             holder.title.setText(holder.mitem.getName()+" ( "+String.valueOf(holder.mitem.getItems().size())+" )");
             if(holder.mitem.getIs_enabled().equals("1")){
+                holder.toggle.setOnCheckedChangeListener(null);
                 holder.toggle.setChecked(true);
                 enabled="1";
             }
             else{
+                holder.toggle.setOnCheckedChangeListener(null);
                 holder.toggle.setChecked(false);
                 enabled="0";
 

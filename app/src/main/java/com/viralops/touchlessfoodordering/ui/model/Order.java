@@ -166,6 +166,7 @@ public class Order {
         private String item_id;
 
         private String count;
+        private String name;
 
         private String details;
 
@@ -189,6 +190,14 @@ public class Order {
             this.count = count;
         }
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public String getDetails ()
     {
         return details;
@@ -202,7 +211,7 @@ public class Order {
         @Override
         public String toString()
         {
-            return "ClassPojo [item_id = "+item_id+", count = "+count+", details = "+details+"]";
+            return "ClassPojo [item_id = "+item_id+", count = "+count+", details = "+details+", name = "+name+"]";
         }
     }
 

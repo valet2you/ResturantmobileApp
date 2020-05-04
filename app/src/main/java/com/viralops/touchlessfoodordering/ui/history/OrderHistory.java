@@ -3,6 +3,7 @@ package com.viralops.touchlessfoodordering.ui.history;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.todkars.shimmer.ShimmerRecyclerView;
 import com.viralops.touchlessfoodordering.R;
 import com.viralops.touchlessfoodordering.ui.API.RetrofitClientInstance;
+import com.viralops.touchlessfoodordering.ui.Support.Internetconnection;
 import com.viralops.touchlessfoodordering.ui.Support.Network;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 import com.viralops.touchlessfoodordering.ui.main.HomeAdapter;
@@ -77,6 +79,7 @@ public class OrderHistory extends Fragment {
         searchView =  view.findViewById(R.id.searchView);
 
         sessionManager=new SessionManager(getActivity());
+        sessionManager.setIsINternet("false");
 
         recyclerview=view.findViewById(R.id.sidelist);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
@@ -106,8 +109,17 @@ public class OrderHistory extends Fragment {
         else if(Network.isNetworkAvailable2(getActivity())){
             GetMenu("today");
         }
-       else {
+        else {
+            if (sessionManager.getIsINternet().equals("false")) {
+                Intent intent = new Intent(getActivity(), Internetconnection.class);
+                startActivity(intent);
 
+                sessionManager.setIsINternet("true");
+                this.getActivity().finish();
+
+            } else {
+
+            }
         }
         searchView.addTextChangedListener(new TextWatcher() {
             @Override

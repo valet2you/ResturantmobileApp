@@ -39,7 +39,7 @@
                 android:gravity="center"
                 android:id="@+id/text"
                 android:textColor="@color/black"
-                android:text="LOGIN TO YOUR VSERVE ACCOUNT"
+                android:text="LOGIN TO YOUR VSERVE++ ACCOUNT"
                 android:textSize="16sp"
 
                 android:layout_height="wrap_content"/>

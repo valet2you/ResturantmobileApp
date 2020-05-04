@@ -30,7 +30,7 @@ android:background="@color/black"
 
         <TextView
         android:layout_width="wrap_content"
-            android:text="SERVE"
+            android:text="SERVE++"
                android:id="@+id/serve"
             android:layout_marginLeft="5dp"
             android:textColor="#939393"
