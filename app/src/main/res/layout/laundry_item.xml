@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:src="@mipmap/dish1"
+                    android:id="@+id/dish"
+                    android:visibility="gone"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:layout_height="100dp"/>
+
+
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10sp"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/category"
+                android:src="@mipmap/nonveg"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+
+                android:layout_height="wrap_content"></ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/title"
+                    android:textColor="@color/gray"
+                    android:text="Multani Paneer Tikka"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/category1"
+                android:textColor="#B8B7B7"
+                android:textAllCaps="true"
+                android:visibility="gone"
+                android:text="TANDOORI STARTERS"
+                android:layout_marginTop="5dp"
+
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/spicy"
+                    android:layout_gravity="left"
+                    android:backgroundTint="#CC0909"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:textColor="@color/white"
+                    android:text="Spicy"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:textSize="12sp"
+                    android:paddingRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/standard"
+                        android:textColor="@color/redblood"
+                        android:text="Standard : "
+                        android:layout_marginTop="5dp"
+
+                        android:textSize="14sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/price"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:text="@string/Rs"
+                    android:layout_marginTop="5dp"
+
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/price1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="200"
+
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/express"
+                        android:textColor="#4CAF50"
+                        android:text="Express  : "
+                        android:layout_marginTop="5dp"
+
+                        android:textSize="14sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/expressprice"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:text="@string/Rs"
+                    android:layout_marginTop="5dp"
+
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/expressprice1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="200"
+
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+          </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/ingredinets"
+                android:textColor="@color/black"
+                android:text="Cottage Cheese, Carom Seeds,Youghurt"
+
+
+                android:textSize="12sp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:alpha="0.6"
+                android:orientation="vertical"
+                android:id="@+id/gradeout"
+                android:visibility="gone"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@drawable/togglestate"
+                android:checked="true"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:textOff=""
+                android:textOn="" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

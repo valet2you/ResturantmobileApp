@@ -57,11 +57,13 @@
 
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="62dp"
-
+                        android:visibility="gone"
+                        android:layout_marginLeft="12dp"
+                        android:id="@+id/hearderforlaundry"
                         android:layout_toRightOf="@+id/textid"
                         android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
@@ -70,7 +72,7 @@
                             android:layout_width="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="10dp"
-                            android:id="@+id/neworderss"
+                            android:id="@+id/startndard"
                             android:background="@drawable/border"
                             android:orientation="horizontal"
                             android:layout_height="40dp">
@@ -81,12 +83,12 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
-                                    android:id="@+id/busytrolley"
+                                    android:id="@+id/standardsrvice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="8dp"
                                     android:layout_weight="1"
-                                    android:text="New Orders"
+                                    android:text="Standard orders"
                                     android:textColor="@color/blue"
 
                                     android:textSize="14sp" />
@@ -99,7 +101,7 @@
                                     android:layout_marginLeft="20dp"
                                     android:layout_marginRight="8dp"
 
-                                    android:id="@+id/avalbletrollet"
+                                    android:id="@+id/standtotal"
                                     android:textSize="14sp"
                                     android:layout_height="wrap_content"/>
 
@@ -108,7 +110,7 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:src="@mipmap/calling"
-                                android:id="@+id/bell"
+                                android:id="@+id/belllaundry"
                                 android:layout_marginBottom="10dp"
                                 android:layout_height="20dp"/>
                         </LinearLayout>
@@ -129,12 +131,12 @@
                                 android:layout_height="wrap_content">
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:text="Accepted"
+                                    android:text="Express Orders"
                                     android:layout_weight="1"
                                     android:layout_marginLeft="8dp"
 
                                     android:textColor="#FF9800"
-                                    android:id="@+id/busytray"
+                                    android:id="@+id/express"
                                     android:textSize="14sp"
                                     android:layout_height="wrap_content"/>
                                 <TextView
@@ -146,45 +148,7 @@
                                     android:gravity="right"
                                     android:layout_marginRight="8dp"
 
-                                    android:id="@+id/avalbletray"
-                                    android:textSize="14sp"
-                                    android:layout_height="wrap_content"/>
-
-
-                            </LinearLayout>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="15dp"
-                            android:background="@drawable/border"
-                            android:orientation="horizontal"
-                            android:layout_height="40dp">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:text="In Kitchen"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mogiya"
-                                    android:id="@+id/busyassociate"
-                                    android:textSize="14sp"
-                                    android:layout_marginLeft="8dp"
-
-                                    android:layout_height="wrap_content"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:text="6"
-                                    android:textColor="@color/black"
-                                    android:layout_weight="1"
-                                    android:layout_marginLeft="20dp"
-                                    android:textStyle="bold"
-                                    android:layout_marginRight="8dp"
-                                    android:gravity="right"
-                                    android:id="@+id/avalbleassociate"
+                                    android:id="@+id/totalexpress"
                                     android:textSize="14sp"
                                     android:layout_height="wrap_content"/>
 
@@ -208,7 +172,7 @@
                                     android:text="Total Orders"
                                     android:layout_weight="1"
                                     android:textColor="#FF0000"
-                                    android:id="@+id/total"
+                                    android:id="@+id/totallaudry"
                                     android:textSize="14sp"
                                     android:layout_marginLeft="8dp"
 
@@ -222,7 +186,7 @@
                                     android:textStyle="bold"
                                     android:layout_marginRight="8dp"
                                     android:gravity="right"
-                                    android:id="@+id/totalorders"
+                                    android:id="@+id/totalorderslaundry"
                                     android:textSize="14sp"
                                     android:layout_height="wrap_content"/>
 
@@ -234,8 +198,8 @@
 
 
 
-                    </LinearLayout>
 
+                    </LinearLayout>
 
 
 
@@ -250,7 +214,7 @@
                         android:id="@+id/menu"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
-                         android:layout_gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
                         android:layout_margin="5dp"
                         app:cardBackgroundColor="@color/blue"
                         app:cardElevation="5dp">

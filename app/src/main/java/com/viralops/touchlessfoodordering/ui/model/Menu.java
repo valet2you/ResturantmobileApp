@@ -34,7 +34,7 @@ public class Menu {
     }
 
 
-    public  class menu_data{
+    public static class menu_data{
         private String is_enabled;
 
         private String image;
@@ -137,7 +137,7 @@ public class Menu {
             return "ClassPojo [is_enabled = "+is_enabled+", image = "+image+", category_id = "+category_id+", updated_at = "+updated_at+", name = "+name+", description = "+description+", created_at = "+created_at+", items = "+items+"]";
         }
     }
-    public class Items{
+    public static class Items{
         private String is_enabled;
 
         private String image;

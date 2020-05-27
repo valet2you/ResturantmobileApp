@@ -16,8 +16,10 @@ android {
 
     buildTypes {
         release {
-            buildConfigField "String", "BASE_URL", '"https://ird-api.valet2you.in/v10.0.6/menu_user/"'
+            buildConfigField "String", "BASE_URL", '"https://vserve-api.valet2you.in/api/v1/"'
             // buildConfigField "String", "BASE_URL", '"https://training-app.valet2you.in/api/v1/"'
+            buildConfigField "String", "imageurl", '"https://master-vserve.s3.ap-south-1.amazonaws.com/menu-items/"'
+
             buildConfigField "String", "login", '"login"'
             buildConfigField "String", "logout", '"logout"'
             buildConfigField "String", "hotel_menu", '"hotel_menu"'
@@ -30,13 +32,37 @@ android {
             buildConfigField "String", "order_dispatch", '"order_dispatch"'
             buildConfigField "String", "get_order_history", '"get_order_history"'
             buildConfigField "String", "get_order_header", '"get_order_header"'
+            //----------------Laundry-------------------------------------//
+            buildConfigField "String", "laundry_menu", '"wash/laundry"'
+            buildConfigField "String", "laundry_item_enable", '"wash/laundry/item/enable/"'
+            buildConfigField "String", "laundry_disable_item", '"wash/laundry/item/disable/"'
+            buildConfigField "String", "laundry_disable_category", '"wash/laundry/category/disable/"'
+            buildConfigField "String", "laundry_enable_category", '"wash/laundry/category/enable/"'
+            buildConfigField "String", "laundry_addon_itemenable", '"wash/laundry/item/addon/enable/"'
+            buildConfigField "String", "laundry_addon_itemdisable", '"wash/laundry/item/addon/disable/"'
+            buildConfigField "String", "laundry_addon_categoryenable", '"wash/laundry/item/sub-addon/enable/"'
+            buildConfigField "String", "laundry_addon_categorydisable", '"wash/laundry/item/sub-addon/disable/"'
+            buildConfigField "String", "laundry_disable_subcategory", '"wash/laundry/sub-category/disable/"'
+            buildConfigField "String", "laundry_enable_subcategory", '"wash/laundry/sub-category/enable/"'
+            buildConfigField "String", "laundry_get_orders", '"wash/order"'
+            buildConfigField "String", "laundry_order_accept", '"wash/order/accept/"'
+            buildConfigField "String", "laundry_order_dispatch", '"wash/order/dispatch/"'
+            buildConfigField "String", "laundry_order_clear", '"wash/order/clear/"'
+            buildConfigField "String", "laundry_get_order_history", '"wash/order/history"'
+            buildConfigField "String", "laundry_get_order_header", '"wash/header"'
+
+
+            //--------------End of Laundry-------------------------------//
+
 
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"https://ird-api.valet2you.in/v10.0.6/menu_user/"'
+            buildConfigField "String", "BASE_URL", '"https://vserve-api.valet2you.in/api/v1/"'
+            buildConfigField "String", "imageurl", '"https://master-vserve.s3.ap-south-1.amazonaws.com/menu-items/"'
+
             // buildConfigField "String", "BASE_URL", '"https://training-app.valet2you.in/api/v1/"'
             buildConfigField "String", "login", '"login"'
             buildConfigField "String", "logout", '"logout"'
@@ -50,6 +76,29 @@ android {
             buildConfigField "String", "order_dispatch", '"order_dispatch"'
             buildConfigField "String", "get_order_history", '"get_order_history"'
             buildConfigField "String", "get_order_header", '"get_order_header"'
+            //----------------Laundry-------------------------------------//
+            buildConfigField "String", "laundry_menu", '"wash/laundry"'
+            buildConfigField "String", "laundry_item_enable", '"wash/laundry/item/enable/"'
+            buildConfigField "String", "laundry_disable_item", '"wash/laundry/item/disable/"'
+            buildConfigField "String", "laundry_disable_category", '"wash/laundry/category/disable/"'
+            buildConfigField "String", "laundry_enable_category", '"wash/laundry/category/enable/"'
+            buildConfigField "String", "laundry_addon_itemenable", '"wash/laundry/item/addon/enable/"'
+            buildConfigField "String", "laundry_addon_itemdisable", '"wash/laundry/item/addon/disable/"'
+            buildConfigField "String", "laundry_addon_categoryenable", '"wash/laundry/item/sub-addon/enable/"'
+            buildConfigField "String", "laundry_addon_categorydisable", '"wash/laundry/item/sub-addon/disable/"'
+            buildConfigField "String", "laundry_disable_subcategory", '"wash/laundry/sub-category/disable/"'
+            buildConfigField "String", "laundry_enable_subcategory", '"wash/laundry/sub-category/enable/"'
+            buildConfigField "String", "laundry_get_orders", '"wash/order"'
+            buildConfigField "String", "laundry_order_accept", '"wash/order/accept/"'
+            buildConfigField "String", "laundry_order_dispatch", '"wash/order/dispatch/"'
+            buildConfigField "String", "laundry_order_clear", '"wash/order/clear/"'
+            buildConfigField "String", "laundry_get_order_history", '"wash/order/history"'
+            buildConfigField "String", "laundry_get_order_header", '"wash/header"'
+
+
+            //--------------End of Laundry-------------------------------//
+
+
 
         }
 
@@ -80,4 +129,6 @@ android {
 }
 apply plugin: 'com.google.gms.google-services'
 
-
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:+'
+}

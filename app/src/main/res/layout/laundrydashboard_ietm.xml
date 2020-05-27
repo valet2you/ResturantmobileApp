@@ -8,7 +8,7 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:layout_height="290dp">
+    android:layout_height="250dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@drawable/drop_shadow"
@@ -31,31 +31,7 @@
                     android:gravity="center"
 
                     android:layout_height="match_parent">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
 
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:textSize="10dp"
-                            android:textColor="@color/blue"
-                            android:id="@+id/ordertext"
-                           android:layout_marginLeft="10dp"
-                            android:text="Order Id"
-                            android:gravity="center_vertical"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:textSize="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:textColor="@color/black"
-                            android:id="@+id/orderid"
-                            android:text="445145"
-                            android:gravity="center_vertical"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
 
 
                     <TextView
@@ -73,113 +49,44 @@
                 <View
                     android:layout_width="1dp"
                     android:background="#F1F1F1"
-                    android:layout_height="match_parent"/>
+                android:layout_height="match_parent"/>
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:orientation="vertical"
                     android:layout_weight="0.5"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:text="03:15 PM"
-                        android:layout_marginRight="5dp"
-                        android:textStyle="italic"
-                        android:id="@+id/since"
-                        android:paddingTop="5dp"
-                        android:gravity="right"
-                        android:textColor="@color/gray"
-
-                        android:textSize="8sp"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/guest"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="5"
-
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-
-                </LinearLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="#F1F1F1"
-                android:layout_height="1dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="0.7"
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:textSize="10dp"
-                        android:textColor="@color/blue"
-                        android:id="@+id/orderstatustext"
 
-                        android:text="Order Status"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/blue"
+                        android:id="@+id/ordertext"
+                        android:layout_gravity="center"
+
+                        android:layout_marginLeft="10dp"
+                        android:text="Order Id"
                         android:gravity="center_vertical"
                         android:layout_height="wrap_content"/>
-
                     <TextView
-                        android:id="@+id/orderstatus"
-                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="Paid through online"
+                        android:textSize="14dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
-
-                        android:textSize="12sp" />
-
-
-                </LinearLayout>
-                <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="0.3"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/takewaay"
-                    android:src="@mipmap/take"
-
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textSize="12dp"
-                    android:textColor="@color/redblood"
-                    android:id="@+id/orderway"
-
-                    android:text="DINE-IN"
-
-                    android:gravity="center"
-                    android:layout_height="wrap_content"/>
-
-
-            </LinearLayout>
-            </LinearLayout>
+                        android:id="@+id/orderid"
+                        android:text="445145"
+                        android:gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:background="#F1F1F1"
                 android:layout_height="1dp"/>
-            <LinearLayout
+<LinearLayout
                 android:layout_width="match_parent"
-             android:background="#F4F2F2"
+                android:background="#F4F2F2"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -190,12 +97,12 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
+
                         android:textColor="@color/gray"
                         android:id="@+id/status"
 
-                        android:text="In Kitchen"
-                        android:textAllCaps="true"
+                        android:text="Order Received"
                         android:paddingLeft="5dp"
                         android:gravity="center_vertical"
                         android:layout_height="wrap_content"/>
@@ -223,13 +130,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="70dp">
+                android:layout_height="90dp">
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:id="@+id/ordeitems"
                     android:layout_alignParentTop="true"
                     android:layout_above="@+id/more"
-                    android:layout_height="60dp"/>
+                    android:layout_height="80dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="2 more items"
@@ -251,28 +158,33 @@
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:background="#F4F2F2"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:text="Order Instructions"
-                android:textSize="10sp"
-                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/gray"
-                android:layout_height="wrap_content"></TextView>
-            <TextView
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:text="TOTAL"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/gray"
+                    android:layout_height="wrap_content"></TextView>
+                <TextView
 
-                android:layout_width="match_parent"
-                android:text="Not spicy"
-                android:textColor="@color/black"
-                android:id="@+id/instrctions"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:textSize="12sp"
-                android:padding="5dp"
-                android:layout_height="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:text="Rs 2000"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:id="@+id/instrctions"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -301,15 +213,15 @@
                 android:layout_height="28dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"
                     android:id="@+id/dispatch"
-                    android:text="Accept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Accepted"
                     android:textAllCaps="true"
                     android:textColor="#80000000"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="12sp" />
 
 
             </androidx.cardview.widget.CardView>

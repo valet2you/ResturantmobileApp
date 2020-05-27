@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/custom"
+            android:textColor="#4A884D"
+            android:text="Custom : "
+            android:textSize="11sp"
+            android:layout_gravity="center"
+
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/customitems"
+            android:textColor="@color/gray"
+            android:text="Rice"
+            android:textSize="11sp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

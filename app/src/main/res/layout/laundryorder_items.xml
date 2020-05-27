@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:padding="2dp"
+    android:orientation="vertical"
     android:layout_marginTop="5dp"
     android:layout_gravity="center_horizontal"
 
     android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:id="@+id/vegtype"
-        android:src="@mipmap/veggg"
-        android:padding="5dp"
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/categorylist"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:paddingLeft="5dp"
         android:layout_height="wrap_content"/>
     <TextView
         android:layout_width="match_parent"
@@ -25,4 +28,12 @@
 
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/addonslist"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/redblood"
+        android:paddingLeft="5dp"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

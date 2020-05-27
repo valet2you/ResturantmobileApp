@@ -47,31 +47,7 @@
                 android:gravity="center"
 
                 android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:textSize="10dp"
-                        android:textColor="@color/blue"
-                        android:id="@+id/ordertext"
-                        android:layout_marginLeft="10dp"
-                        android:text="Order Id"
-                        android:gravity="center_vertical"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:textSize="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:id="@+id/orderid"
-                        android:text="445145"
-                        android:gravity="center_vertical"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:textSize="20sp"
@@ -80,6 +56,7 @@
                     android:textColor="@color/black"
                     android:id="@+id/roomno"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:layout_height="match_parent"/>
 
 
@@ -116,35 +93,6 @@
 
 
             </LinearLayout>
-            <View
-                android:layout_width="1dp"
-                android:background="#F1F1F1"
-                android:layout_height="match_parent"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="0.3"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/takewaay"
-                    android:src="@mipmap/take"
-
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textSize="12dp"
-                    android:textColor="@color/redblood"
-                    android:id="@+id/orderway"
-
-                    android:text="DINE-IN"
-
-                    android:gravity="center"
-                    android:layout_height="wrap_content"/>
-
-
-            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -172,7 +120,7 @@
             android:layout_height="1dp"/>
         <TextView
             android:layout_width="match_parent"
-            android:text="ORDER INSTRUCTIONS"
+            android:text="ORDER PICKUP TIME"
             android:padding="10dp"
             android:id="@+id/orderins"
             android:textSize="12sp"
@@ -221,6 +169,7 @@
             android:layout_width="match_parent"
             android:text="ORDER STATUS"
             android:padding="10dp"
+            android:visibility="gone"
             android:textAllCaps="true"
             android:id="@+id/statustext"
             android:textSize="12sp"
@@ -230,6 +179,7 @@
             android:layout_width="match_parent"
             android:text="Paid through Online Paymtnt"
             android:id="@+id/status"
+            android:visibility="gone"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"

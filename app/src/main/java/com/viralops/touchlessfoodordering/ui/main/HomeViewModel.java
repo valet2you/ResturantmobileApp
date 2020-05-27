@@ -50,6 +50,7 @@ public class HomeViewModel{
         private String room_no;
 
         private String details;
+        private int takewaay;
 
         private String order_id;
         private long timediffrence;
@@ -65,6 +66,14 @@ public class HomeViewModel{
         }
 
         private String status;
+
+        public int getTakewaay() {
+            return takewaay;
+        }
+
+        public void setTakewaay(int takewaay) {
+            this.takewaay = takewaay;
+        }
 
         public long getUpdated_at ()
     {
@@ -177,7 +186,8 @@ public class HomeViewModel{
     {
         private String item_id;
         private  String name;
-
+        private String type;
+        private String tag;
         private String count;
 
         private String details;
@@ -210,6 +220,22 @@ public class HomeViewModel{
             this.count = count;
         }
 
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getTag() {
+            return tag;
+        }
+
+        public void setTag(String tag) {
+            this.tag = tag;
+        }
+
         public String getDetails ()
     {
         return details;
@@ -223,7 +249,7 @@ public class HomeViewModel{
         @Override
         public String toString()
         {
-            return "ClassPojo [item_id = "+item_id+", count = "+count+", details = "+details+", name = "+name+"]";
+            return "ClassPojo [item_id = "+item_id+", count = "+count+", details = "+details+", name = "+name+",type="+type+",tag="+tag+"]";
         }
     }
 

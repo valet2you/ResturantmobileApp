@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="2dp"
+    android:orientation="vertical"
+android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_gravity="center_horizontal"
+
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/categorylist"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxLength="10"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:paddingLeft="5dp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="2dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="0dp"
+        android:id="@+id/quantity"
+        android:layout_weight="0.1"
+        android:layout_toRightOf="@id/name"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:text=""
+        android:layout_marginRight="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.9"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/name"
+        android:textColor="@color/black"
+        android:text=""
+        android:maxLength="15"
+        android:textSize="12sp"
+
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/addonslist"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/redblood"
+        android:paddingLeft="5dp"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10sp"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/title"
+                    android:textColor="@color/black"
+                    android:text="Multani Paneer Tikka"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+                             <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/price"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:text="@string/Rs"
+                    android:layout_marginTop="5dp"
+
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/price1"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:text="200"
+                    android:layout_marginTop="5dp"
+
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+          </LinearLayout>
+                       </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:alpha="0.6"
+                android:orientation="vertical"
+                android:id="@+id/gradeout"
+                android:visibility="gone"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:paddingRight="10dp"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:layout_width="33dp"
+                    android:background="@drawable/greenleft"
+                    android:text="-"
+                    android:id="@+id/minustray"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+
+                    android:layout_height="24dp"/>
+
+            <TextView
+                android:id="@+id/texttray"
+                android:layout_width="21dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/greybackround"
+
+
+                android:gravity="center"
+                android:text="0"
+                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="33dp"
+                    android:background="@drawable/greenright"
+                    android:text="+"
+                    android:id="@+id/plustray"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+
+                    android:layout_height="24dp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

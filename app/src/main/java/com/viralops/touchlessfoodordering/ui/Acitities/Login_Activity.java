@@ -112,25 +112,20 @@ SessionManagerFCM sessionManagerFCM;
         progressDialog.show(); // show progress dialog
 
 
-        (RetrofitClientInstance.getApiService().SignIn(username.getText().toString().trim(),password.getText().toString().trim(),sessionManagerFCM.getToken(),"A")).enqueue(new Callback<Login>() {
+        (RetrofitClientInstance.getApiService().SignIn(username.getText().toString().trim(),password.getText().toString().trim(),sessionManagerFCM.getToken(),"android")).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(@NonNull Call<Login> call, @NonNull Response<Login> response) {
 
                 if(response.code()==201||response.code()==200){
                     Login  login = response.body();
-                    Toast.makeText(Login_Activity.this,"Login Succcessfully",Toast.LENGTH_SHORT).show();
-                    if(login.getSuccess().equals("1")) {
-                        sessionManager.setPorchName(login.getMessage().getHotel_name());
-                        sessionManager.setACCESSTOKEN(login.getMessage().getAccess_token());
+                    Toast.makeText(Login_Activity.this,login.getMessage(),Toast.LENGTH_SHORT).show();
+                    sessionManager.setPorchName(login.getHotel().getName());
+                    sessionManager.setACCESSTOKEN(login.getAccess_token());
 
-                        Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                    else{
+                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                    startActivity(intent);
 
-                    }
                     progressDialog.dismiss();
-
 
                 }
                 else if(response.code()==401){

@@ -1,4 +1,4 @@
-package com.viralops.touchlessfoodordering.ui.history;
+package com.viralops.touchlessfoodordering.ui.Laundry;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,17 +19,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.viralops.touchlessfoodordering.R;
-import com.viralops.touchlessfoodordering.ui.model.Order;
+import com.viralops.touchlessfoodordering.ui.model.OrderHistory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewholder>{
-    ArrayList<Order.Data> homeViewModels;
+public class LaundryHistoryAdapter extends RecyclerView.Adapter<LaundryHistoryAdapter.viewholder>{
+    ArrayList<LaundryOrderHistory1.Data> homeViewModels;
     Context context;
 
-    public HistoryAdapter(Context context, ArrayList<Order.Data> homeViewModels) {
+    public LaundryHistoryAdapter(Context context, ArrayList<LaundryOrderHistory1.Data> homeViewModels) {
         this.context=context;
         this.homeViewModels=homeViewModels;
     }
@@ -46,11 +50,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
     @Override
     public void onBindViewHolder(@NonNull final viewholder holder, int position) {
         holder.mitem=homeViewModels.get(position);
-        holder.roomno.setText(holder.mitem.getRoom_no());
-        holder.guests.setText(holder.mitem.getNo_guest());
-        holder.orderrecived.setText(getDate(holder.mitem.getCreated_at()));
-        holder.orderstatus.setText(getDate(holder.mitem.getDispatched_at()));
-        holder.acceptedat.setText(getDate(holder.mitem.getConfirm_at()));
+        holder.roomno.setText(holder.mitem.getPrimises().getPremise_no());
+        holder.guests.setText(holder.mitem.getNo_of_guest());
+        holder.orderrecived.setText(getDate1(holder.mitem.getOrder_detail().getCreated_at()));
+        holder.orderstatus.setText(getDate1(holder.mitem.getOrder_detail().getCleared_at()));
+        holder.acceptedat.setText(getDate1(holder.mitem.getOrder_detail().getAccepted_at()));
 
 
 
@@ -66,7 +70,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
 
 
     }
-    public void filterList(ArrayList<Order.Data> filterdNames) {
+    public void filterList(ArrayList<LaundryOrderHistory1.Data> filterdNames) {
         this.homeViewModels = filterdNames;
         notifyDataSetChanged();
     }
@@ -83,7 +87,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
          public  TextView acceptedat;
 
         LinearLayout colorimage;
-        Order.Data mitem;
+        LaundryOrderHistory1.Data mitem;
 
 
 
@@ -118,7 +122,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
                      dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                      // dialog.getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT);            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                     dialog.setContentView(R.layout.history_detail);
+                     dialog.setContentView(R.layout.laundryhistory_detail);
                      int width1 = (int)(context.getResources().getDisplayMetrics().widthPixels*0.48);
                      int height1 = (int)(context.getResources().getDisplayMetrics().heightPixels*0.90);
                      dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
@@ -148,24 +152,19 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
                      TextView dispatcg=dialog.findViewById(R.id.dispactch);
                      RecyclerView orderitemsdetail=dialog.findViewById(R.id.orderitemsdetail);
                      orderitemsdetail.setLayoutManager(new GridLayoutManager(context,2));
-                     roomno.setText(homeViewModels.get(getAdapterPosition()).getRoom_no());
-                     guests.setText(homeViewModels.get(getAdapterPosition()).getNo_guest());
-                     since.setText(getDate(homeViewModels.get(getAdapterPosition()).getCreated_at()));
-                     if (homeViewModels.get(getAdapterPosition()).getDetails() != null) {
-                         orderinsdetails.setText(homeViewModels.get(getAdapterPosition()).getDetails());
+                     roomno.setText(homeViewModels.get(getAdapterPosition()).getPrimises().getPremise_no());
+                     guests.setText("Cleared");
+                     since.setText(getDate1(homeViewModels.get(getAdapterPosition()).getOrder_detail().getCreated_at()));
 
-                     }
-                     else{
-                         orderinsdetails.setText("-");
+                         orderinsdetails.setText(getDate1(homeViewModels.get(getAdapterPosition()).getOrder_detail().getRequested_pickup_at()));
 
-                     }
-                     Order_ItemAdapterdetail order_itemAdapterdetail=new Order_ItemAdapterdetail(homeViewModels.get(getAdapterPosition()).getItems(),context);
+
+                     Order_ItemAdapterdetail order_itemAdapterdetail=new Order_ItemAdapterdetail(homeViewModels.get(getAdapterPosition()).getOrder_laundry_items(),context);
                      orderitemsdetail.setAdapter(order_itemAdapterdetail);
                      LinearLayout colorimage=dialog.findViewById(R.id.colorimage);
-                     guests.setText(homeViewModels.get(getAdapterPosition()).getNo_guest());
 
-                         accepted.setText(getDate(homeViewModels.get(getAdapterPosition()).getConfirm_at()));
-                         dispatcg.setText(getDate(homeViewModels.get(getAdapterPosition()).getDispatched_at()));
+                         accepted.setText(getDate1(homeViewModels.get(getAdapterPosition()).getOrder_detail().getAccepted_at()));
+                         dispatcg.setText(getDate1(homeViewModels.get(getAdapterPosition()).getOrder_detail().getCleared_at()));
 
 
 
@@ -186,7 +185,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
                  }
              });
          }
-        
+
 
      }
 
@@ -196,11 +195,66 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
         String date = DateFormat.format("hh:mm a", cal).toString();
         return date;
     }
-    public class Order_ItemAdapterdetail extends  RecyclerView.Adapter<Order_ItemAdapterdetail.ViewHolder>{
-        ArrayList<Order.Items> order_items;
+    public class AddonsAdatpter extends  RecyclerView.Adapter<AddonsAdatpter.ViewHolder>{
+        ArrayList<com.viralops.touchlessfoodordering.ui.model.OrderHistory.Order_addons> order_items;
         Context context;
 
-        public Order_ItemAdapterdetail(ArrayList<Order.Items> order_items, Context context) {
+        public AddonsAdatpter(ArrayList<com.viralops.touchlessfoodordering.ui.model.OrderHistory.Order_addons> order_items, Context context) {
+            this.order_items = order_items;
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public AddonsAdatpter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.addonitems, parent, false);
+            return new AddonsAdatpter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull AddonsAdatpter.ViewHolder holder, int position) {
+            holder.mitem=order_items.get(position);
+            if(holder.mitem.getItem().getItem_subaddon()!=null) {
+                holder.custom.setText((holder.mitem.getItem().getItem_subaddon().getName())+" : ");
+            }
+            else{
+                holder.custom.setText("Custom : ");
+            }
+            holder.customitems.setText(holder.mitem.getItem().getName());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return order_items.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView custom;
+            TextView customitems;
+            OrderHistory.Order_addons mitem;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                custom=itemView.findViewById(R.id.custom);
+                customitems=itemView.findViewById(R.id.customitems);
+                Typeface font = Typeface.createFromAsset(
+                        context.getAssets(),
+                        "font/verdana.ttf");
+                custom.setTypeface(font);
+                customitems.setTypeface(font);
+            }
+        }
+
+
+
+    }
+    public class Order_ItemAdapterdetail extends  RecyclerView.Adapter<Order_ItemAdapterdetail.ViewHolder>{
+        ArrayList<LaundryOrderHistory1.Order_laundry_items> order_items;
+        Context context;
+
+        public Order_ItemAdapterdetail(ArrayList<LaundryOrderHistory1.Order_laundry_items> order_items, Context context) {
             this.order_items = order_items;
             this.context = context;
         }
@@ -209,14 +263,24 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
         @Override
         public Order_ItemAdapterdetail.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.order_items, parent, false);
+                    .inflate(R.layout.laundryorder_items, parent, false);
             return new Order_ItemAdapterdetail.ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull Order_ItemAdapterdetail.ViewHolder holder, int position) {
             holder.mitem=order_items.get(position);
-            holder.name.setText(holder.mitem.getCount()+" X "+holder.mitem.getName());
+            holder.name.setText(holder.mitem.getQuantity()+" X "+holder.mitem.getItem().getName());
+            if(holder.mitem.getIs_express_delivery().equals("1")){
+                holder.addonslist.setText("Express");
+                holder.addonslist.setTextColor(Color.parseColor("#4CAF50"));
+            }
+            else{
+                holder.addonslist.setText("Standard");
+                holder.addonslist.setTextColor(context.getResources().getColor(R.color.redblood));
+
+            }
+
 
         }
 
@@ -227,11 +291,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView name;
-            Order.Items mitem;
+            LaundryOrderHistory1.Order_laundry_items mitem;
+            TextView addonslist;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 name=itemView.findViewById(R.id.name);
+                addonslist=itemView.findViewById(R.id.addonslist);
                 Typeface font = Typeface.createFromAsset(
                         context.getAssets(),
                         "font/verdana.ttf");
@@ -241,6 +307,22 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewhold
 
 
 
+    }
+
+    private String getDate1(String time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = null;//You will get date object relative to server/client timezone wherever it is parsed
+        try {
+            date = dateFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, hh:mm a");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//If you need time just put specific format for time like 'HH:mm:ss'
+        String dateStr = formatter.format(date);
+        return dateStr;
     }
 
 }
