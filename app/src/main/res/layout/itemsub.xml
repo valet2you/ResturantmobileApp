@@ -13,30 +13,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/parent"
-
+            android:orientation="horizontal"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_toLeftOf="@+id/toggleButton1"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+
                 android:backgroundTint="@color/gray"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
 
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     android:layout_height="wrap_content">
                     <View
-                        android:layout_width="100dp"
+                        android:layout_width="50dp"
                         android:layout_gravity="center"
-
+android:visibility="gone"
                         android:background="@color/black"
                         android:layout_height="3dp"/>
 
@@ -53,11 +56,11 @@
                         android:textAllCaps="true"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
                     <View
-                        android:layout_width="100dp"
+                        android:layout_width="50dp"
                         android:layout_gravity="center"
-
+android:visibility="gone"
                         android:background="@color/black"
                         android:layout_height="3dp"/>
                 </LinearLayout>
@@ -72,21 +75,28 @@
                     android:textColor="#A9A9AC"
                     android:textSize="12dp" />
             </LinearLayout>
-            <ToggleButton
-                android:id="@+id/toggleButton1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:id="@+id/toleft"
+                android:layout_height="wrap_content">
 
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                <ToggleButton
+                    android:id="@+id/toggleButton1"
+                    android:layout_width="wrap_content"
 
-                android:button="@drawable/togglestate"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
 
-                android:checked="true"
-                android:textSize="12sp"
-                android:layout_alignParentRight="true"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
+
+                    android:button="@drawable/togglestate"
+
+                    android:checked="true"
+                    android:textOff=""
+                    android:textOn=""
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
 
 
 

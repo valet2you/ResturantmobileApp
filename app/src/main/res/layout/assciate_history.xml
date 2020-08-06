@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/top"
+            android:background="@drawable/backgroundbg"
+            android:layout_height="250dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/standardsrvice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:text="Standard orders -"
+                            android:textColor="@color/white"
+
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/golddark"                                android:textStyle="bold"
+                            android:gravity="center"
+
+                            android:layout_marginRight="8dp"
+
+                            android:id="@+id/standtotal"
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Express Orders -"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="8dp"
+
+                            android:textColor="@color/white"
+                            android:id="@+id/express"
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text=""
+                            android:layout_weight="1"
+                            android:textColor="@color/golddark"                                android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_marginRight="8dp"
+
+                            android:id="@+id/totalexpress"
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Total Orders - "
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:id="@+id/totallaudry"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="8dp"
+
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text=""
+                        android:textColor="@color/gold"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:layout_marginRight="8dp"
+                        android:gravity="right"
+                        android:id="@+id/totalorderslaundry"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/searchView"
+                    android:layout_below="@+id/top"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.8"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/whitebackgroudblack"
+                    android:layout_height="wrap_content"
+                    android:hint="Search for Table No. or Order No."
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@mipmap/search"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:iconifiedByDefault="false"
+                    />
+                <ImageView
+                    android:id="@+id/filter"
+                    android:visibility="visible"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:src="@mipmap/filter"
+                    android:tint="@color/golddark"
+
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_height="match_parent">
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recycler"
+                android:layout_marginBottom="10dp"
+
+                android:layout_height="match_parent"></com.todkars.shimmer.ShimmerRecyclerView>
+            <TextView
+                android:layout_width="match_parent"
+                android:text="No Request found."
+                android:textColor="#615c5c"
+                android:textSize="17sp"
+                android:id="@+id/norecord"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

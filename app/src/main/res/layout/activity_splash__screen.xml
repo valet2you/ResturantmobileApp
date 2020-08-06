@@ -4,38 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:background="@color/black"
+    android:background="@color/white"
+
     tools:context=".ui.Acitities.Splash_Screen">
     <ImageView
         android:layout_width="wrap_content"
-        android:src="@drawable/logofrofooter"
+        android:src="@mipmap/launcherbluebig"
         android:layout_gravity="center"
-        android:tint="#1e1e1e"
-        android:alpha="0.5"
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="V"
-        android:textStyle="bold"
-      android:id="@+id/v"
-        android:textColor="@color/white"
-        android:layout_marginRight="10dp"
-        android:textSize="60dp"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="V"
+            android:textStyle="bold"
+            android:id="@+id/v"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:textSize="28dp"
+            android:layout_height="wrap_content"/>
 
         <TextView
-        android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:text="SERVE++"
-               android:id="@+id/serve"
+            android:id="@+id/serve"
+            android:visibility="gone"
             android:layout_marginLeft="5dp"
             android:textColor="#939393"
-            android:textSize="50dp"
-        android:layout_height="wrap_content"/>
+            android:textSize="25dp"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -45,31 +46,32 @@ android:background="@color/black"
         android:layout_gravity="bottom"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="POWERED"
-      android:id="@+id/power"
-        android:textColor="#939393"
-        android:textSize="16dp"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="POWERED"
+            android:id="@+id/power"
+            android:textColor="#615D5D"
+            android:textSize="16dp"
+            android:layout_height="wrap_content"/>
 
         <TextView
-        android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:text="BY"
 
-               android:id="@+id/by"
+            android:id="@+id/by"
             android:layout_marginLeft="15dp"
-            android:textColor="#939393"
+            android:textColor="#615D5D"
             android:textSize="16sp"
-        android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>
+
         <TextView
-        android:layout_width="wrap_content"
-            android:text="VIRALOPS"
+            android:id="@+id/viral"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
-               android:id="@+id/viral"
-            android:textColor="#939393"
-            android:textSize="16sp"
-        android:layout_height="wrap_content"/>
+            android:text="VIRALOPS"
+            android:textColor="#615D5D"
+            android:textSize="16sp" />
     </LinearLayout>
 
 

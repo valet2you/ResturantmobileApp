@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.viralops.touchlessfoodordering.MainActivity;
 import com.viralops.touchlessfoodordering.R;
+import com.viralops.touchlessfoodordering.ui.Associate.AssociateMain;
+import com.viralops.touchlessfoodordering.ui.Associate.LoginActivity_Associate;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 
 public class Splash_Screen extends AppCompatActivity {
@@ -51,17 +52,17 @@ public class Splash_Screen extends AppCompatActivity {
                     };
                     try {
                         if (sessionManager.getPorchName().equals("")) {
-                            startActivity(new Intent(Splash_Screen.this, Login_Activity.class));
+                            startActivity(new Intent(Splash_Screen.this, LoginActivity_Associate.class));
                             finish();
                         } else {
-                            Intent intent=new Intent(Splash_Screen.this, MainActivity.class);
+                            Intent intent=new Intent(Splash_Screen.this, AssociateMain.class);
                             intent.putExtra("openvalue","dashboard");
                             startActivity(intent);
                             finish();
                         }
                     }
                     catch (Exception e){
-                        startActivity(new Intent(Splash_Screen.this, Login_Activity.class));
+                        startActivity(new Intent(Splash_Screen.this, LoginActivity_Associate.class));
                         finish();
                     }
                 }

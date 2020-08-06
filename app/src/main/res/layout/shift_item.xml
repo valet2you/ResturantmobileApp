@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20.0dip"
+        app:cardUseCompatPadding="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/topcard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="10.0dip"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:textSize="12.0sp"
+                        android:textColor="#ff808080"
+                        android:id="@+id/datetext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DATE" />
+                    <TextView
+                        android:textSize="17.0sp"
+                        android:textColor="#ff091f42"
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8.0dip"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="10.0dip"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0">
+                    <TextView
+                        android:textSize="12.0sp"
+                        android:textColor="#ff808080"
+                        android:id="@+id/shifttext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SHIFT TIMING" />
+                    <TextView android:textSize="15.0sp"
+                        android:textColor="#ff091f42"
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8.0dip"
+                        android:text="" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10.0dip">
+                        <TextView
+                            android:textSize="12.0sp"
+                            android:textColor="#ff808080"
+                            android:id="@+id/hours"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="HOURS COMPLETED" />
+                        <TextView
+                            android:textSize="15.0sp"
+                            android:textColor="#ff091f42"
+                            android:id="@+id/complte"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8.0dip"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="#ffafa9a9"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/below"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center"
+                    android:padding="10.0dip"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9">
+                    <TextView
+                        android:textSize="12.0dip"
+                        android:gravity="center"
+                        android:id="@+id/triptet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="TOTAL TRIPS" />
+                    <TextView
+                        android:textSize="15.0sp"
+                        android:textColor="#ff091f42"
+                        android:gravity="center"
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="10.0dip"
+                        android:text="41" />
+                </LinearLayout>
+                <ImageView
+                    android:padding="10.0dip"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:src="@mipmap/goldarrow"
+                    android:layout_weight="0.1" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <com.viralops.touchlessfoodordering.ui.Support.ExpandableLinearLayout
+        android:id="@+id/expandableView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:expandDuration="500">
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:elevation="20.0dip"
+            app:cardUseCompatPadding="true">
+            <LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ff153659" android:gravity="center" android:id="@+id/expanded_textview" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAllCaps="false" />
+                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="5.0dip">
+                    <TextView android:textSize="13.0sp" android:textColor="#ff716b6b" android:id="@+id/dipatchtext" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Total Dispatched" android:layout_weight="1.0" />
+                    <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="#ff0f4693" android:gravity="center" android:layout_gravity="center" android:id="@+id/disptcharrow" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text=":" android:layout_weight="0.2" />
+                    <TextView android:textSize="13.0sp" android:textStyle="normal" android:textColor="#ff716b6b" android:id="@+id/dipatch" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="" android:layout_weight="1.0" />
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="5.0dip">
+                    <TextView android:textSize="13.0sp" android:textColor="#ff716b6b" android:id="@+id/clearedtext" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Total Cleared" android:layout_weight="1.0" />
+                    <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="#ff0f4693" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@+id/arrowclread" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text=":" android:layout_weight="0.2" />
+                    <TextView android:textSize="13.0sp" android:textStyle="normal" android:id="@+id/cleared" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="" android:layout_weight="1.0" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </com.viralops.touchlessfoodordering.ui.Support.ExpandableLinearLayout>
+</LinearLayout>

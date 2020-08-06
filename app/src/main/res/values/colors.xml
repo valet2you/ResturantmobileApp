@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorPrimary">#333b6c</color>
+    <color name="colorPrimaryDark">#333b6c</color>
+    <color name="divider">#212346</color>
+    <color name="colorAccent">#333b6c</color>
+    <color name="darkblue">#091F42</color>
     <color name="light_green">#d4edda</color>
     <color name="red">#f8d7da</color>
     <color name="reddark">#FF0000</color>
     <color name="pink">#D8497A</color>
     <color name="mehroon">#721c24</color>
+    <color name="gold">#FCDA96</color>
+    <color name="golddark">#EFBC55</color>
     <color name="mogiya">#0c5460</color>
     <color name="black">#000000</color>
     <color name="orange">#fff3cd</color>
@@ -15,6 +19,7 @@
     <color name="bluetext">#4293B8</color>
     <color name="marriott">#b51f3d</color>
     <color name="redblood">#C32B20</color>
+    <color name="green">#4F9F52</color>
     <color name="gray">#666666</color>
     <color name="lightgrey">#e2e3e5</color>
     <color name="lightgrey1">#eeeeee</color>

@@ -7,19 +7,18 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
-import com.viralops.touchlessfoodordering.MainActivity;
 import com.viralops.touchlessfoodordering.R;
+import com.viralops.touchlessfoodordering.ui.Associate.AssociateMain;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManager;
 import com.viralops.touchlessfoodordering.ui.Support.SessionManagerFCM;
 
@@ -74,7 +73,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         PendingIntent pendingIntent;
 
 
-            Intent intent = new Intent(FirebaseMessagingService.this, MainActivity.class);
+            Intent intent = new Intent(FirebaseMessagingService.this, AssociateMain.class);
             intent.putExtra("key", "value");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(FirebaseMessagingService.this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -83,54 +82,34 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
 
-        int notifyID = 1;
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        String CHANNEL_ID = "my_channel_01";// The id of the channel.
-        CharSequence name = "VServe";// The user-visible name of the channel.
-        Notification notification;
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-       // Create a notification and set the notification channel.
-        //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher).copy(Bitmap.Config.ARGB_8888, true);
-        NotificationChannel mChannel = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-            notification = new Notification.Builder(FirebaseMessagingService.this)
-                    .setContentTitle("VServe ++ - New Request Found upar!!!")
-                    .setContentText(messageBody)
-                    .setLargeIcon(logo)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+            Notification n = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                n = new Notification.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSound(uri)
+                        .setChannelId("channel")
+                        .setAutoCancel(true).build();
+            }
+            else{
+                n = new Notification.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSound(uri)
+                        .setAutoCancel(true).build();
+            }
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.notify((int) System.currentTimeMillis(), n);
 
-                    .setAutoCancel(true)
-                    .setChannelId(CHANNEL_ID).setContentIntent(pendingIntent).build();
+            e.printStackTrace();
         }
-        else
-        {
-            notification = new Notification.Builder(FirebaseMessagingService.this)
-                    .setContentTitle("VServe ++ - New Request Found !!!")
-                    .setContentText(messageBody)
-                    .setLargeIcon(logo)
 
-                    .setSmallIcon(R.mipmap.ic_launcher).setAutoCancel(true)
-                    .setContentIntent(pendingIntent).build();
-
-        }
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mNotificationManager.createNotificationChannel(mChannel);
-            mNotificationManager.notify(notifyID , notification);
-            mNotificationManager.cancel(notifyID);
-            // startForeground(1,notification);
-
-        }
-        else{
-            mNotificationManager.notify(notifyID, notification);
-            mNotificationManager.cancel(notifyID);
-            //startForeground(1,notification);
-
-            //   mNotificationManager.cancelAll()
-        }
 
     }
 

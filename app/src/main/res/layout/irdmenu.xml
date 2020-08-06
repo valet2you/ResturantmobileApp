@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+   <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/parent"
+
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:backgroundTint="@color/gray"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/category"
+                    style="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                        android:layout_marginRight="32dp"
+                    android:layout_alignParentTop="true"
+                    android:text="BREAKFAST"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gray"
+                    android:textSize="18dp" />
+                <TextView
+                    android:id="@+id/descriprtion"
+                    style="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                        android:layout_marginRight="32dp"
+                    android:layout_alignParentTop="true"
+                    android:text="6am 0 10am"
+                    android:textColor="#A9A9AC"
+                    android:textSize="14dp" />
+            </LinearLayout>
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+
+                android:button="@drawable/togglestate"
+
+                android:checked="true"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/parent"
+            android:orientation="vertical"
+            android:background="#958385"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/square"
+            android:layout_height="5dp"/>
+
+
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/rv_child"
+             android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/square"
+            app:shimmer_recycler_layout="@layout/layout_demo_grid"
+            app:shimmer_recycler_item_count="10"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="wrap_content"
+           />
+
+    </RelativeLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="horizontal"
+           android:background="@color/white"
+           android:id="@+id/gradeout"
+           android:alpha="0.7"
+           android:layout_height="match_parent"></LinearLayout>
+   </FrameLayout>
+
+</LinearLayout>

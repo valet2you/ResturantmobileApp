@@ -31,7 +31,7 @@ public class OrderHistory {
     public String toString()
     {
         return "ClassPojo [data = "+data+", message = "+message+"]";
-    
+
     }
     public class Order_detail
     {
@@ -92,9 +92,9 @@ public class OrderHistory {
         }
 
         public String getCanceled_on ()
-    {
-        return canceled_on;
-    }
+        {
+            return canceled_on;
+        }
 
         public void setCanceled_on (String canceled_on)
         {
@@ -136,135 +136,135 @@ public class OrderHistory {
         {
             return "ClassPojo [updated_at = "+updated_at+", dispatched_at = "+dispatched_at+", created_at = "+created_at+", cleared_at = "+cleared_at+", canceled_on = "+canceled_on+", id = "+id+", order_id = "+order_id+", accepted_at = "+accepted_at+"]";
         }
-}
-public class Order_menu_items
-{
-    private String menu_item_id;
-
-    private Item item;
-
-    private String quantity;
-
-    private String updated_at;
-
-    private String price;
-
-    private String description;
-
-    private String created_at;
-
-    private String id;
-
-    private String order_id;
-
-    private ArrayList<Order_addons> order_addons;
-
-    public String getMenu_item_id ()
-    {
-        return menu_item_id;
     }
-
-    public void setMenu_item_id (String menu_item_id)
+    public class Order_menu_items
     {
-        this.menu_item_id = menu_item_id;
-    }
+        private String menu_item_id;
 
-    public Item getItem ()
-    {
-        return item;
-    }
+        private Item item;
 
-    public void setItem (Item item)
-    {
-        this.item = item;
-    }
+        private String quantity;
 
-    public String getQuantity ()
-    {
-        return quantity;
-    }
+        private String updated_at;
 
-    public void setQuantity (String quantity)
-    {
-        this.quantity = quantity;
-    }
+        private String price;
 
-    public String getUpdated_at ()
-    {
-        return updated_at;
-    }
+        private String description;
 
-    public void setUpdated_at (String updated_at)
-    {
-        this.updated_at = updated_at;
-    }
+        private String created_at;
 
-    public String getPrice ()
-    {
-        return price;
-    }
+        private String id;
 
-    public void setPrice (String price)
-    {
-        this.price = price;
-    }
+        private String order_id;
 
-    public String getDescription ()
-    {
-        return description;
-    }
+        private ArrayList<Order_addons> order_addons;
 
-    public void setDescription (String description)
-    {
-        this.description = description;
-    }
+        public String getMenu_item_id ()
+        {
+            return menu_item_id;
+        }
 
-    public String getCreated_at ()
-    {
-        return created_at;
-    }
+        public void setMenu_item_id (String menu_item_id)
+        {
+            this.menu_item_id = menu_item_id;
+        }
 
-    public void setCreated_at (String created_at)
-    {
-        this.created_at = created_at;
-    }
+        public Item getItem ()
+        {
+            return item;
+        }
 
-    public String getId ()
-    {
-        return id;
-    }
+        public void setItem (Item item)
+        {
+            this.item = item;
+        }
 
-    public void setId (String id)
-    {
-        this.id = id;
-    }
+        public String getQuantity ()
+        {
+            return quantity;
+        }
 
-    public String getOrder_id ()
-    {
-        return order_id;
-    }
+        public void setQuantity (String quantity)
+        {
+            this.quantity = quantity;
+        }
 
-    public void setOrder_id (String order_id)
-    {
-        this.order_id = order_id;
-    }
+        public String getUpdated_at ()
+        {
+            return updated_at;
+        }
 
-    public ArrayList<Order_addons> getOrder_addons ()
-    {
-        return order_addons;
-    }
+        public void setUpdated_at (String updated_at)
+        {
+            this.updated_at = updated_at;
+        }
 
-    public void setOrder_addons (ArrayList<Order_addons> order_addons)
-    {
-        this.order_addons = order_addons;
-    }
+        public String getPrice ()
+        {
+            return price;
+        }
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [menu_item_id = "+menu_item_id+", item = "+item+", quantity = "+quantity+", updated_at = "+updated_at+", price = "+price+", description = "+description+", created_at = "+created_at+", id = "+id+", order_id = "+order_id+", order_addons = "+order_addons+"]";
+        public void setPrice (String price)
+        {
+            this.price = price;
+        }
+
+        public String getDescription ()
+        {
+            return description;
+        }
+
+        public void setDescription (String description)
+        {
+            this.description = description;
+        }
+
+        public String getCreated_at ()
+        {
+            return created_at;
+        }
+
+        public void setCreated_at (String created_at)
+        {
+            this.created_at = created_at;
+        }
+
+        public String getId ()
+        {
+            return id;
+        }
+
+        public void setId (String id)
+        {
+            this.id = id;
+        }
+
+        public String getOrder_id ()
+        {
+            return order_id;
+        }
+
+        public void setOrder_id (String order_id)
+        {
+            this.order_id = order_id;
+        }
+
+        public ArrayList<Order_addons> getOrder_addons ()
+        {
+            return order_addons;
+        }
+
+        public void setOrder_addons (ArrayList<Order_addons> order_addons)
+        {
+            this.order_addons = order_addons;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "ClassPojo [menu_item_id = "+menu_item_id+", item = "+item+", quantity = "+quantity+", updated_at = "+updated_at+", price = "+price+", description = "+description+", created_at = "+created_at+", id = "+id+", order_id = "+order_id+", order_addons = "+order_addons+"]";
+        }
     }
-}
 
     public class Data
     {
@@ -278,6 +278,8 @@ public class Order_menu_items
 
         private String type;
 
+        private String table_id;
+
         private Order_detail order_detail;
 
         private ArrayList<Order_menu_items> order_menu_items;
@@ -286,11 +288,11 @@ public class Order_menu_items
 
         private String updated_at;
 
-        private Primises primises;
-
         private String primises_id;
 
         private String id;
+
+        private Table table;
 
         private String status;
 
@@ -325,9 +327,9 @@ public class Order_menu_items
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -344,6 +346,16 @@ public class Order_menu_items
             this.type = type;
         }
 
+        public String getTable_id ()
+        {
+            return table_id;
+        }
+
+        public void setTable_id (String table_id)
+        {
+            this.table_id = table_id;
+        }
+
         public Order_detail getOrder_detail ()
         {
             return order_detail;
@@ -354,7 +366,7 @@ public class Order_menu_items
             this.order_detail = order_detail;
         }
 
-        public ArrayList<Order_menu_items> getOrder_menu_items ()
+        public ArrayList<Order_menu_items>  getOrder_menu_items ()
         {
             return order_menu_items;
         }
@@ -384,16 +396,6 @@ public class Order_menu_items
             this.updated_at = updated_at;
         }
 
-        public Primises getPrimises ()
-        {
-            return primises;
-        }
-
-        public void setPrimises (Primises primises)
-        {
-            this.primises = primises;
-        }
-
         public String getPrimises_id ()
         {
             return primises_id;
@@ -414,6 +416,16 @@ public class Order_menu_items
             this.id = id;
         }
 
+        public Table getTable ()
+        {
+            return table;
+        }
+
+        public void setTable (Table table)
+        {
+            this.table = table;
+        }
+
         public String getStatus ()
         {
             return status;
@@ -427,7 +439,7 @@ public class Order_menu_items
         @Override
         public String toString()
         {
-            return "ClassPojo [hotel_id = "+hotel_id+", payment_status = "+payment_status+", created_at = "+created_at+", description = "+description+", type = "+type+", order_detail = "+order_detail+", order_menu_items = "+order_menu_items+", no_of_guest = "+no_of_guest+", updated_at = "+updated_at+", primises = "+primises+", primises_id = "+primises_id+", id = "+id+", status = "+status+"]";
+            return "ClassPojo [hotel_id = "+hotel_id+", payment_status = "+payment_status+", created_at = "+created_at+", description = "+description+", type = "+type+", table_id = "+table_id+", order_detail = "+order_detail+", order_menu_items = "+order_menu_items+", no_of_guest = "+no_of_guest+", updated_at = "+updated_at+", primises_id = "+primises_id+", id = "+id+", table = "+table+", status = "+status+"]";
         }
     }
 
@@ -462,9 +474,9 @@ public class Order_menu_items
         private String id;
 
         public String getMenu_sub_category_id ()
-    {
-        return menu_sub_category_id;
-    }
+        {
+            return menu_sub_category_id;
+        }
 
         public void setMenu_sub_category_id (String menu_sub_category_id)
         {
@@ -472,9 +484,9 @@ public class Order_menu_items
         }
 
         public String getThumbnail ()
-    {
-        return thumbnail;
-    }
+        {
+            return thumbnail;
+        }
 
         public void setThumbnail (String thumbnail)
         {
@@ -532,9 +544,9 @@ public class Order_menu_items
         }
 
         public String getTags ()
-    {
-        return tags;
-    }
+        {
+            return tags;
+        }
 
         public void setTags (String tags)
         {
@@ -608,13 +620,11 @@ public class Order_menu_items
         }
     }
 
-    public class Primises
+    public class Table
     {
-        private String hotel_floor_id;
+        private String table_no;
 
         private String updated_at;
-
-        private String premise_no;
 
         private String hotel_id;
 
@@ -624,14 +634,16 @@ public class Order_menu_items
 
         private String id;
 
-        public String getHotel_floor_id ()
+        private String restaurant_sections_id;
+
+        public String getTable_no ()
         {
-            return hotel_floor_id;
+            return table_no;
         }
 
-        public void setHotel_floor_id (String hotel_floor_id)
+        public void setTable_no (String table_no)
         {
-            this.hotel_floor_id = hotel_floor_id;
+            this.table_no = table_no;
         }
 
         public String getUpdated_at ()
@@ -642,16 +654,6 @@ public class Order_menu_items
         public void setUpdated_at (String updated_at)
         {
             this.updated_at = updated_at;
-        }
-
-        public String getPremise_no ()
-        {
-            return premise_no;
-        }
-
-        public void setPremise_no (String premise_no)
-        {
-            this.premise_no = premise_no;
         }
 
         public String getHotel_id ()
@@ -694,12 +696,23 @@ public class Order_menu_items
             this.id = id;
         }
 
+        public String getRestaurant_sections_id ()
+        {
+            return restaurant_sections_id;
+        }
+
+        public void setRestaurant_sections_id (String restaurant_sections_id)
+        {
+            this.restaurant_sections_id = restaurant_sections_id;
+        }
+
         @Override
         public String toString()
         {
-            return "ClassPojo [hotel_floor_id = "+hotel_floor_id+", updated_at = "+updated_at+", premise_no = "+premise_no+", hotel_id = "+hotel_id+", name = "+name+", created_at = "+created_at+", id = "+id+"]";
+            return "ClassPojo [table_no = "+table_no+", updated_at = "+updated_at+", hotel_id = "+hotel_id+", name = "+name+", created_at = "+created_at+", id = "+id+", restaurant_sections_id = "+restaurant_sections_id+"]";
         }
     }
+
 
     public class Order_addons
     {
@@ -774,9 +787,9 @@ public class Order_menu_items
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -896,9 +909,9 @@ public class Order_menu_items
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -956,9 +969,9 @@ public class Order_menu_items
         }
 
         public String getTags ()
-    {
-        return tags;
-    }
+        {
+            return tags;
+        }
 
         public void setTags (String tags)
         {
@@ -1015,9 +1028,9 @@ public class Order_menu_items
         }
 
         public String getThumbnail ()
-    {
-        return thumbnail;
-    }
+        {
+            return thumbnail;
+        }
 
         public void setThumbnail (String thumbnail)
         {
@@ -1025,9 +1038,9 @@ public class Order_menu_items
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -1065,9 +1078,9 @@ public class Order_menu_items
         }
 
         public Item_subaddon getItem_subaddon ()
-    {
-        return item_subaddon;
-    }
+        {
+            return item_subaddon;
+        }
 
         public void setItem_subaddon (Item_subaddon item_subaddon)
         {
@@ -1075,9 +1088,9 @@ public class Order_menu_items
         }
 
         public String getTags ()
-    {
-        return tags;
-    }
+        {
+            return tags;
+        }
 
         public void setTags (String tags)
         {
@@ -1145,9 +1158,9 @@ public class Order_menu_items
         }
 
         public String getMenu_item_subaddon_id ()
-    {
-        return menu_item_subaddon_id;
-    }
+        {
+            return menu_item_subaddon_id;
+        }
 
         public void setMenu_item_subaddon_id (String menu_item_subaddon_id)
         {

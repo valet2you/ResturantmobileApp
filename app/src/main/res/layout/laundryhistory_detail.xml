@@ -167,7 +167,7 @@
             android:layout_height="1dp"/>
         <TextView
             android:layout_width="match_parent"
-            android:text="ORDER Dispatched at"
+            android:text="ORDER Cleared at"
             android:padding="10dp"
             android:textAllCaps="true"
             android:id="@+id/distpatchtext"

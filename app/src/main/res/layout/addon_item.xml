@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1.5"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,7 +31,6 @@
 
                 <ImageView
                     android:layout_width="100dp"
-                    android:src="@mipmap/dish1"
                     android:id="@+id/dish"
                     android:visibility="gone"
                     android:adjustViewBounds="true"
@@ -53,7 +52,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/category"
-                android:src="@mipmap/nonveg"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
 
@@ -63,7 +61,7 @@
                     android:id="@+id/title"
                     android:textColor="@color/gray"
                     android:text="Multani Paneer Tikka"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -92,7 +90,7 @@
                     android:text="@string/Rs"
                     android:layout_marginTop="5dp"
 
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"/>
 
@@ -106,7 +104,7 @@
 
                         android:textAllCaps="true"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
             </LinearLayout>

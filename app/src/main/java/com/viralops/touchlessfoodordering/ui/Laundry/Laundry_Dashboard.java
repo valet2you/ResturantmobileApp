@@ -313,7 +313,7 @@ public class Laundry_Dashboard {
         }
     }
 
-    public class Order_laundry_items
+    public static class Order_laundry_items
     {
         private Item item;
 

@@ -387,7 +387,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.viewholder>{
 
 
     }
-    public class Order_ItemAdapterdetail extends  RecyclerView.Adapter<Order_ItemAdapterdetail.ViewHolder>{
+    public static class Order_ItemAdapterdetail extends  RecyclerView.Adapter<Order_ItemAdapterdetail.ViewHolder>{
         ArrayList<HomeViewModel.Items> order_items;
         Context context;
 

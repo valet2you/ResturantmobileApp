@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
     android:layout_marginTop="10dp"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content">
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1.5"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,9 +32,8 @@
 
                 <ImageView
                     android:layout_width="100dp"
-                    android:src="@mipmap/dish1"
                     android:id="@+id/dish"
-                    android:background="@drawable/whitegradient"
+                    android:visibility="gone"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:layout_height="100dp"/>
@@ -55,7 +53,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/category"
-                android:src="@mipmap/nonveg"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
 
@@ -63,9 +60,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/title"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray"
                     android:text="Multani Paneer Tikka"
-                    android:textSize="20sp"
+                    android:textSize="16dp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -74,6 +71,7 @@
                 android:id="@+id/category1"
                 android:textColor="#B8B7B7"
                 android:textAllCaps="true"
+                android:visibility="gone"
                 android:text="TANDOORI STARTERS"
                 android:layout_marginTop="5dp"
 
@@ -98,33 +96,6 @@
                     android:layout_marginLeft="10dp"
 
                     android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/price"
-                    android:textColor="@color/black"
-                    android:textAllCaps="true"
-                    android:text="@string/Rs"
-                    android:layout_marginTop="5dp"
-
-                    android:textSize="16sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/price1"
-                    android:textColor="@color/black"
-                    android:textAllCaps="true"
-                    android:text="200"
-                    android:layout_marginTop="5dp"
-
-                    android:textSize="16sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content"/>
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -136,9 +107,40 @@
                 android:text="Cottage Cheese, Carom Seeds,Youghurt"
 
 
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/price"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/Rs"
+                        android:layout_marginTop="5dp"
+
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/price1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="200"
+
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,7 +154,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="0.2"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:gravity="right"
             android:layout_height="wrap_content">
             <ToggleButton
@@ -170,13 +172,40 @@
         </LinearLayout>
 
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/customise"
+        android:textColor="@color/redblood"
+        android:text="Add-Ons"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/customiselist"
+        android:layout_gravity="left"
+        android:backgroundTint="#CC0909"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:textColor="@color/white"
+        android:text="Spicy"
+        android:paddingLeft="5dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textSize="12sp"
+        android:paddingRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
 
     <View
         android:layout_width="match_parent"
         android:background="@color/lightgrey"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="6dp"
         android:layout_marginBottom="10dp"
         android:layout_height="1dp"></View>
 </LinearLayout>

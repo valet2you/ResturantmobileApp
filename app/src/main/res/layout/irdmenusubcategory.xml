@@ -54,10 +54,10 @@
                 <TextView
                     android:id="@+id/descriprtion"
                     style="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="32dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="2"
                     android:text=""
                     android:textColor="#A9A9AC"
                     android:textSize="12dp" />

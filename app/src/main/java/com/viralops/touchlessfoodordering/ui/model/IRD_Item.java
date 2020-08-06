@@ -8,7 +8,7 @@ public class IRD_Item {
 
         private String thumbnail;
 
-        private String[] without_subaddon_addons;
+        private JSONArray without_subaddon_addons;
 
         private String description;
 
@@ -56,12 +56,12 @@ public class IRD_Item {
             this.thumbnail = thumbnail;
         }
 
-        public String[] getWithout_subaddon_addons ()
+        public JSONArray getWithout_subaddon_addons ()
         {
             return without_subaddon_addons;
         }
 
-        public void setWithout_subaddon_addons (String[] without_subaddon_addons)
+        public void setWithout_subaddon_addons (JSONArray without_subaddon_addons)
         {
             this.without_subaddon_addons = without_subaddon_addons;
         }

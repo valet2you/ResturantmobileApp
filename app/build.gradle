@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.viralops.touchlessfoodordering"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -16,22 +16,36 @@ android {
 
     buildTypes {
         release {
-            buildConfigField "String", "BASE_URL", '"https://vserve-api.valet2you.in/api/v1/"'
+            lintOptions {
+                disable 'MissingTranslation'
+                checkReleaseBuilds false
+                abortOnError false
+            }
+            buildConfigField "String", "BASE_URL", '"https://vserve-api.valet2you.in/api/v3/"'
             // buildConfigField "String", "BASE_URL", '"https://training-app.valet2you.in/api/v1/"'
             buildConfigField "String", "imageurl", '"https://master-vserve.s3.ap-south-1.amazonaws.com/menu-items/"'
-
+            buildConfigField "String", "imageurlsig", '"https://master-vserve.s3.ap-south-1.amazonaws.com/guest-signature/"'
             buildConfigField "String", "login", '"login"'
             buildConfigField "String", "logout", '"logout"'
-            buildConfigField "String", "hotel_menu", '"hotel_menu"'
-            buildConfigField "String", "enable_item", '"enable_item"'
-            buildConfigField "String", "disable_item", '"disable_item"'
-            buildConfigField "String", "disable_category", '"disable_category"'
-            buildConfigField "String", "enable_category", '"enable_category"'
-            buildConfigField "String", "get_orders", '"get_orders"'
-            buildConfigField "String", "order_accept", '"order_accept"'
-            buildConfigField "String", "order_dispatch", '"order_dispatch"'
-            buildConfigField "String", "get_order_history", '"get_order_history"'
-            buildConfigField "String", "get_order_header", '"get_order_header"'
+            buildConfigField "String", "ird_menu", '"restaurant/menu"'
+            buildConfigField "String", "menu_enable", '"restaurant/menu/enable/"'
+            buildConfigField "String", "disable_menu", '"restaurant/menu/disable/"'
+            buildConfigField "String", "item_enable", '"restaurant/menu/item/enable/"'
+            buildConfigField "String", "disable_item", '"restaurant/menu/item/disable/"'
+            buildConfigField "String", "disable_category", '"restaurant/menu/category/disable/"'
+            buildConfigField "String", "enable_category", '"restaurant/menu/category/enable/"'
+            buildConfigField "String", "addon_itemenable", '"restaurant/menu/item/addon/enable/"'
+            buildConfigField "String", "addon_itemdisable", '"restaurant/menu/item/addon/disable/"'
+            buildConfigField "String", "addon_categoryenable", '"restaurant/menu/item/sub-addon/enable/"'
+            buildConfigField "String", "addon_categorydisable", '"restaurant/menu/item/sub-addon/disable/"'
+            buildConfigField "String", "disable_subcategory", '"restaurant/menu/sub-category/disable/"'
+            buildConfigField "String", "enable_subcategory", '"restaurant/menu/sub-category/enable/"'
+            buildConfigField "String", "get_orders", '"restaurant/order"'
+            buildConfigField "String", "order_accept", '"restaurant/order/accept/"'
+            buildConfigField "String", "order_dispatch", '"restaurant/order/dispatch/"'
+            buildConfigField "String", "order_clear", '"restaurant/order/clear/"'
+            buildConfigField "String", "get_order_history", '"restaurant/order/history"'
+            buildConfigField "String", "get_order_header", '"restaurant/header"'
             //----------------Laundry-------------------------------------//
             buildConfigField "String", "laundry_menu", '"wash/laundry"'
             buildConfigField "String", "laundry_item_enable", '"wash/laundry/item/enable/"'
@@ -60,22 +74,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"https://vserve-api.valet2you.in/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"https://vserve-api.valet2you.in/api/v3/"'
             buildConfigField "String", "imageurl", '"https://master-vserve.s3.ap-south-1.amazonaws.com/menu-items/"'
+            buildConfigField "String", "imageurlsig", '"https://master-vserve.s3.ap-south-1.amazonaws.com/guest-signature/"'
 
             // buildConfigField "String", "BASE_URL", '"https://training-app.valet2you.in/api/v1/"'
             buildConfigField "String", "login", '"login"'
             buildConfigField "String", "logout", '"logout"'
-            buildConfigField "String", "hotel_menu", '"hotel_menu"'
-            buildConfigField "String", "enable_item", '"enable_item"'
-            buildConfigField "String", "disable_item", '"disable_item"'
-            buildConfigField "String", "disable_category", '"disable_category"'
-            buildConfigField "String", "enable_category", '"enable_category"'
-            buildConfigField "String", "get_orders", '"get_orders"'
-            buildConfigField "String", "order_accept", '"order_accept"'
-            buildConfigField "String", "order_dispatch", '"order_dispatch"'
-            buildConfigField "String", "get_order_history", '"get_order_history"'
-            buildConfigField "String", "get_order_header", '"get_order_header"'
+            buildConfigField "String", "ird_menu", '"restaurant/menu"'
+            buildConfigField "String", "menu_enable", '"restaurant/menu/enable/"'
+            buildConfigField "String", "disable_menu", '"restaurant/menu/disable/"'
+            buildConfigField "String", "item_enable", '"restaurant/menu/item/enable/"'
+            buildConfigField "String", "disable_item", '"restaurant/menu/item/disable/"'
+            buildConfigField "String", "disable_category", '"restaurant/menu/category/disable/"'
+            buildConfigField "String", "enable_category", '"restaurant/menu/category/enable/"'
+            buildConfigField "String", "addon_itemenable", '"restaurant/menu/item/addon/enable/"'
+            buildConfigField "String", "addon_itemdisable", '"restaurant/menu/item/addon/disable/"'
+            buildConfigField "String", "addon_categoryenable", '"restaurant/menu/item/sub-addon/enable/"'
+            buildConfigField "String", "addon_categorydisable", '"restaurant/menu/item/sub-addon/disable/"'
+            buildConfigField "String", "disable_subcategory", '"restaurant/menu/sub-category/disable/"'
+            buildConfigField "String", "enable_subcategory", '"restaurant/menu/sub-category/enable/"'
+            buildConfigField "String", "get_orders", '"restaurant/order"'
+            buildConfigField "String", "order_accept", '"restaurant/order/accept/"'
+            buildConfigField "String", "order_dispatch", '"restaurant/order/dispatch/"'
+            buildConfigField "String", "order_clear", '"restaurant/order/clear/"'
+            buildConfigField "String", "get_order_history", '"restaurant/order/history"'
+            buildConfigField "String", "get_order_header", '"restaurant/header"'
             //----------------Laundry-------------------------------------//
             buildConfigField "String", "laundry_menu", '"wash/laundry"'
             buildConfigField "String", "laundry_item_enable", '"wash/laundry/item/enable/"'
@@ -116,7 +140,9 @@ android {
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
         implementation 'com.squareup.retrofit2:retrofit:2.1.0'
         implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-        implementation 'com.google.firebase:firebase-messaging:19.0.0'
+        implementation 'com.google.firebase:firebase-messaging:20.2.0'
+        implementation 'androidx.legacy:legacy-support-v4:+'
+        implementation 'com.google.firebase:firebase-core:17.4.2'
         implementation 'com.squareup.picasso:picasso:2.5.2'
         testImplementation 'junit:junit:4.12'
         implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
@@ -129,6 +155,3 @@ android {
 }
 apply plugin: 'com.google.gms.google-services'
 
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
-}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/backgroundbg"
+        android:layout_height="200dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/filter"
+            android:text="Filter"
+            android:visibility="invisible"
+            android:textColor="@color/gold"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:drawableTint="@color/gold"
+            android:drawableLeft="@mipmap/filter"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/text"
+            android:text=""
+            android:textColor="@color/gold"
+
+            android:padding="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/searchView"
+        android:layout_below="@+id/top"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/whitebackgroudblack"
+        android:layout_height="wrap_content"
+        android:hint="Search for Room No"
+        android:textSize="12sp"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@mipmap/search"
+        android:paddingLeft="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:iconifiedByDefault="false"
+        />
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:id="@+id/recycler"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="match_parent"></com.todkars.shimmer.ShimmerRecyclerView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="No Request found."
+        android:textColor="#615c5c"
+        android:textSize="17sp"
+        android:id="@+id/norecord"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_height="match_parent" />
+</RelativeLayout>

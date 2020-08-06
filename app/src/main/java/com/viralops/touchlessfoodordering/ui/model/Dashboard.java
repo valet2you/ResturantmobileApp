@@ -1,5 +1,7 @@
 package com.viralops.touchlessfoodordering.ui.model;
 
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
 public class Dashboard {
@@ -33,28 +35,27 @@ public class Dashboard {
         return "ClassPojo [data = "+data+", message = "+message+"]";
     }
 
-    public class Data
+    public static class Data
     {
         private String hotel_id;
-        private long Timediffrence;
-
+        private long timedifference;
         private String payment_status;
 
         private String created_at;
 
-        public long getTimediffrence() {
-            return Timediffrence;
-        }
-
-        public void setTimediffrence(long timediffrence) {
-            Timediffrence = timediffrence;
-        }
-
         private String description;
 
-        private ArrayList<order_menu_addons> order_menu_addons;
-
         private String type;
+
+        public long getTimedifference() {
+            return timedifference;
+        }
+
+        public void setTimedifference(long timedifference) {
+            this.timedifference = timedifference;
+        }
+
+        private String table_id;
 
         private Order_detail order_detail;
 
@@ -64,11 +65,11 @@ public class Dashboard {
 
         private String updated_at;
 
-        private Primises primises;
-
         private String primises_id;
 
         private String id;
+
+        private Table table;
 
         private String status;
 
@@ -103,23 +104,13 @@ public class Dashboard {
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
             this.description = description;
-        }
-
-        public ArrayList<order_menu_addons> getOrder_menu_addons ()
-        {
-            return order_menu_addons;
-        }
-
-        public void setOrder_menu_addons (ArrayList<order_menu_addons> order_menu_addons)
-        {
-            this.order_menu_addons = order_menu_addons;
         }
 
         public String getType ()
@@ -130,6 +121,16 @@ public class Dashboard {
         public void setType (String type)
         {
             this.type = type;
+        }
+
+        public String getTable_id ()
+        {
+            return table_id;
+        }
+
+        public void setTable_id (String table_id)
+        {
+            this.table_id = table_id;
         }
 
         public Order_detail getOrder_detail ()
@@ -172,16 +173,6 @@ public class Dashboard {
             this.updated_at = updated_at;
         }
 
-        public Primises getPrimises ()
-        {
-            return primises;
-        }
-
-        public void setPrimises (Primises primises)
-        {
-            this.primises = primises;
-        }
-
         public String getPrimises_id ()
         {
             return primises_id;
@@ -202,6 +193,16 @@ public class Dashboard {
             this.id = id;
         }
 
+        public Table getTable ()
+        {
+            return table;
+        }
+
+        public void setTable (Table table)
+        {
+            this.table = table;
+        }
+
         public String getStatus ()
         {
             return status;
@@ -215,7 +216,7 @@ public class Dashboard {
         @Override
         public String toString()
         {
-            return "ClassPojo [hotel_id = "+hotel_id+", payment_status = "+payment_status+", created_at = "+created_at+", description = "+description+", order_menu_addons = "+order_menu_addons+", type = "+type+", order_detail = "+order_detail+", order_menu_items = "+order_menu_items+", no_of_guest = "+no_of_guest+", updated_at = "+updated_at+", primises = "+primises+", primises_id = "+primises_id+", id = "+id+", status = "+status+"]";
+            return "ClassPojo [hotel_id = "+hotel_id+", payment_status = "+payment_status+", created_at = "+created_at+", description = "+description+", type = "+type+", table_id = "+table_id+", order_detail = "+order_detail+", order_menu_items = "+order_menu_items+", no_of_guest = "+no_of_guest+", updated_at = "+updated_at+", primises_id = "+primises_id+", id = "+id+", table = "+table+", status = "+status+"]";
         }
     }
     public class order_menu_addons
@@ -267,9 +268,9 @@ public class Dashboard {
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -466,9 +467,9 @@ public class Dashboard {
         }
 
         public String getDispatched_at ()
-    {
-        return dispatched_at;
-    }
+        {
+            return dispatched_at;
+        }
 
         public void setDispatched_at (String dispatched_at)
         {
@@ -486,9 +487,9 @@ public class Dashboard {
         }
 
         public String getCleared_at ()
-    {
-        return cleared_at;
-    }
+        {
+            return cleared_at;
+        }
 
         public void setCleared_at (String cleared_at)
         {
@@ -496,9 +497,9 @@ public class Dashboard {
         }
 
         public String getCanceled_on ()
-    {
-        return canceled_on;
-    }
+        {
+            return canceled_on;
+        }
 
         public void setCanceled_on (String canceled_on)
         {
@@ -526,9 +527,9 @@ public class Dashboard {
         }
 
         public String getAccepted_at ()
-    {
-        return accepted_at;
-    }
+        {
+            return accepted_at;
+        }
 
         public void setAccepted_at (String accepted_at)
         {
@@ -583,9 +584,9 @@ public class Dashboard {
         }
 
         public String getThumbnail ()
-    {
-        return thumbnail;
-    }
+        {
+            return thumbnail;
+        }
 
         public void setThumbnail (String thumbnail)
         {
@@ -751,9 +752,9 @@ public class Dashboard {
         private String id;
 
         public String getMenu_sub_category_id ()
-    {
-        return menu_sub_category_id;
-    }
+        {
+            return menu_sub_category_id;
+        }
 
         public Item_subaddon getItem_subaddon() {
             return item_subaddon;
@@ -769,9 +770,9 @@ public class Dashboard {
         }
 
         public String getThumbnail ()
-    {
-        return thumbnail;
-    }
+        {
+            return thumbnail;
+        }
 
         public void setThumbnail (String thumbnail)
         {
@@ -829,9 +830,9 @@ public class Dashboard {
         }
 
         public String getTags ()
-    {
-        return tags;
-    }
+        {
+            return tags;
+        }
 
         public void setTags (String tags)
         {
@@ -905,13 +906,11 @@ public class Dashboard {
         }
     }
 
-    public class Primises
+    public class Table
     {
-        private String hotel_floor_id;
+        private String table_no;
 
         private String updated_at;
-
-        private String premise_no;
 
         private String hotel_id;
 
@@ -921,14 +920,16 @@ public class Dashboard {
 
         private String id;
 
-        public String getHotel_floor_id ()
+        private String restaurant_sections_id;
+
+        public String getTable_no ()
         {
-            return hotel_floor_id;
+            return table_no;
         }
 
-        public void setHotel_floor_id (String hotel_floor_id)
+        public void setTable_no (String table_no)
         {
-            this.hotel_floor_id = hotel_floor_id;
+            this.table_no = table_no;
         }
 
         public String getUpdated_at ()
@@ -939,16 +940,6 @@ public class Dashboard {
         public void setUpdated_at (String updated_at)
         {
             this.updated_at = updated_at;
-        }
-
-        public String getPremise_no ()
-        {
-            return premise_no;
-        }
-
-        public void setPremise_no (String premise_no)
-        {
-            this.premise_no = premise_no;
         }
 
         public String getHotel_id ()
@@ -991,12 +982,23 @@ public class Dashboard {
             this.id = id;
         }
 
+        public String getRestaurant_sections_id ()
+        {
+            return restaurant_sections_id;
+        }
+
+        public void setRestaurant_sections_id (String restaurant_sections_id)
+        {
+            this.restaurant_sections_id = restaurant_sections_id;
+        }
+
         @Override
         public String toString()
         {
-            return "ClassPojo [hotel_floor_id = "+hotel_floor_id+", updated_at = "+updated_at+", premise_no = "+premise_no+", hotel_id = "+hotel_id+", name = "+name+", created_at = "+created_at+", id = "+id+"]";
+            return "ClassPojo [table_no = "+table_no+", updated_at = "+updated_at+", hotel_id = "+hotel_id+", name = "+name+", created_at = "+created_at+", id = "+id+", restaurant_sections_id = "+restaurant_sections_id+"]";
         }
     }
+
 
     public class Order_addons
     {
@@ -1071,9 +1073,9 @@ public class Dashboard {
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -1194,9 +1196,9 @@ public class Dashboard {
         }
 
         public String getDescription ()
-    {
-        return description;
-    }
+        {
+            return description;
+        }
 
         public void setDescription (String description)
         {
@@ -1254,9 +1256,9 @@ public class Dashboard {
         }
 
         public String getTags ()
-    {
-        return tags;
-    }
+        {
+            return tags;
+        }
 
         public void setTags (String tags)
         {

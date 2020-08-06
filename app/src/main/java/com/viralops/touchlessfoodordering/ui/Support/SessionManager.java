@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.viralops.touchlessfoodordering.ui.Acitities.Login_Activity;
-
-
+import com.viralops.touchlessfoodordering.ui.Associate.LoginActivity_Associate;
 
 
 /**
@@ -322,7 +320,7 @@ public class SessionManager {
     }
     public void logoutsession(){
 
-        Intent  intent=new Intent(context, Login_Activity.class);
+        Intent  intent=new Intent(context, LoginActivity_Associate.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
         editor.clear();

@@ -32,7 +32,6 @@
 
                 <ImageView
                     android:layout_width="100dp"
-                    android:src="@mipmap/dish1"
                     android:id="@+id/dish"
                     android:visibility="gone"
                     android:adjustViewBounds="true"
@@ -54,7 +53,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/category"
-                android:src="@mipmap/nonveg"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
 

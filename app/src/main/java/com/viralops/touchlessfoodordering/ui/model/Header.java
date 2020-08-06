@@ -32,48 +32,62 @@ public class Header {
     }
     public class Data
     {
-        private int accepted_orders;
+        private int cleared_order;
 
-        private int dispatched_orders;
+        private int dispatched_order;
 
-        private int new_orders;
+        private int new_order;
 
-        public int getAccepted_orders ()
+        private int accepted_order;
+
+        public int getCleared_order ()
         {
-            return accepted_orders;
+            return cleared_order;
         }
 
-        public void setAccepted_orders (int accepted_orders)
+        public void setCleared_order (int cleared_order)
         {
-            this.accepted_orders = accepted_orders;
+            this.cleared_order = cleared_order;
         }
 
-        public int getDispatched_orders ()
+        public int getDispatched_order ()
         {
-            return dispatched_orders;
+            return dispatched_order;
         }
 
-        public void setDispatched_orders (int dispatched_orders)
+        public void setDispatched_order (int dispatched_order)
         {
-            this.dispatched_orders = dispatched_orders;
+            this.dispatched_order = dispatched_order;
         }
 
-        public int getNew_orders ()
+        public int getNew_order ()
         {
-            return new_orders;
+            return new_order;
         }
 
-        public void setNew_orders (int new_orders)
+        public void setNew_order (int new_order)
         {
-            this.new_orders = new_orders;
+            this.new_order = new_order;
+        }
+
+        public int getAccepted_order ()
+        {
+            return accepted_order;
+        }
+
+        public void setAccepted_order (int accepted_order)
+        {
+            this.accepted_order = accepted_order;
         }
 
         @Override
         public String toString()
         {
-            return "ClassPojo [accepted_orders = "+accepted_orders+", dispatched_orders = "+dispatched_orders+", new_orders = "+new_orders+"]";
+            return "ClassPojo [cleared_order = "+cleared_order+", dispatched_order = "+dispatched_order+", new_order = "+new_order+", accepted_order = "+accepted_order+"]";
         }
     }
+
+
 
 
 }

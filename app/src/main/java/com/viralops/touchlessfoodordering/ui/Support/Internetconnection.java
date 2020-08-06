@@ -8,9 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.viralops.touchlessfoodordering.MainActivity;
 import com.viralops.touchlessfoodordering.R;
-
+import com.viralops.touchlessfoodordering.ui.Associate.AssociateMain;
 
 
 public class Internetconnection extends AppCompatActivity {
@@ -27,7 +26,7 @@ TextView home;
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent=new Intent(getApplicationContext(), AssociateMain.class);
                 intent.putExtra("openvalue",value);
                 startActivity(intent);
               finish();
@@ -42,7 +41,7 @@ TextView home;
     @Override
     public void onBackPressed() {
        // super.onBackPressed();
-        Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent=new Intent(getApplicationContext(),AssociateMain.class);
         intent.putExtra("openvalue",value);
         startActivity(intent);
         finish();

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardBackgroundColor="#F3F3F3"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/hotel"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/close"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@mipmap/signs"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:id="@+id/close"
+                android:tint="@color/gray"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content">
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:drawableLeft="@mipmap/search"
+                android:drawablePadding="10dp"
+                android:id="@+id/searchtext"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:singleLine="true"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionSearch"
+                android:paddingBottom="5dp"
+                android:hint="Search for food items"
+                android:background="@drawable/whitebackgroudrpuny"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="match_parent">
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recyclerview"
+                android:padding="10dp"
+                android:layout_height="match_parent">
+
+            </com.todkars.shimmer.ShimmerRecyclerView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

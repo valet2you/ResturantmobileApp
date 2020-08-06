@@ -12,14 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/parent"
 
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:backgroundTint="@color/gray"
@@ -37,7 +38,7 @@
                     android:text="BREAKFAST"
                     android:textAllCaps="true"
                     android:textColor="@color/gray"
-                    android:textSize="20dp" />
+                    android:textSize="18dp" />
                 <TextView
                     android:id="@+id/descriprtion"
                     style="@style/Base.TextAppearance.AppCompat.Subhead"
@@ -48,11 +49,12 @@
                     android:layout_alignParentTop="true"
                     android:text="6am 0 10am"
                     android:textColor="#A9A9AC"
-                    android:textSize="14dp" />
+                    android:textSize="12dp" />
             </LinearLayout>
             <ToggleButton
                 android:id="@+id/toggleButton1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
 
@@ -63,7 +65,7 @@
                 android:layout_alignParentRight="true"
                 android:textOff=""
                 android:textOn="" />
-        </RelativeLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_below="@+id/parent"
